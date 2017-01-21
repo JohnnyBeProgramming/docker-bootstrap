@@ -1,0 +1,23 @@
+{
+  "name": "docker-bootstrap",
+  "version": "0.0.1",
+  "description": "Bootstraps a docker environment for production or development",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JohnnyBeProgramming/docker-bootstrap.git"
+  },
+  "keywords": [
+    "docker",
+    "devops"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JohnnyBeProgramming/docker-bootstrap/issues"
+  },
+  "homepage": "https://github.com/JohnnyBeProgramming/docker-bootstrap#readme"
+}
