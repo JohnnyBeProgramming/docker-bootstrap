@@ -4,9 +4,9 @@
   "description": "Bootstraps a docker environment for production or development",
   "main": "index.js",
   "scripts": {
-    "start": "npm run serve",
-    "serve": "cd server && docker-compose up",
-    "stop": "cd server && docker-compose stop && docker-compose down --volumes",
+    "start": "docker-compose up",
+    "admin": "cd src/portainer/ && docker-compose up",
+    "stop": "docker-compose stop && docker-compose down --volumes",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
