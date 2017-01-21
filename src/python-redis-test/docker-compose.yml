@@ -1,0 +1,10 @@
+version: '2'
+services:
+
+  python-redis-test:
+    image: "src/python-redis-test:latest"
+    build: .
+    ports:
+     - "5000:5000"
+    volumes:
+     - ./code:/code

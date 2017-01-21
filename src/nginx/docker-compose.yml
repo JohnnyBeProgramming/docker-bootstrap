@@ -1,0 +1,9 @@
+version: '2'
+services:
+
+  gateway:
+    container_name: "gateway"
+    image: "src/nginx:latest"
+    build: .
+    ports:
+      - "8080:80"

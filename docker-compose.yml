@@ -1,21 +1,22 @@
 version: '2'
 services:
+
   gateway:
     container_name: "gateway"
-    build: ./server/nginx/
-    ports:
-      - "8080:80"
-
-  python:
-    container_name: "python-test"
     extends:
-        file: ./server/docker-compose.yml
-        service: web
+        file: ./src/nginx/docker-compose.yml
+        service: gateway
     depends_on:
-     - gateway
+     - test
+
+  test:
+    container_name: "python-redis-test"
+    extends:
+        file: ./src/python-redis-test/docker-compose.yml
+        service: python-redis-test
+    depends_on:
+     - redis
 
   redis:
     container_name: "redis-storage"
     image: "redis:alpine"
-    depends_on:
-     - gateway
