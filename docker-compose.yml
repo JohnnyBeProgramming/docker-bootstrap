@@ -4,19 +4,52 @@ services:
   gateway:
     container_name: "gateway"
     extends:
-        file: ./src/nginx/docker-compose.yml
-        service: gateway
+      file: ./src/nginx/docker-compose.yml
+      service: gateway
     depends_on:
      - test
+     - portainer
+    networks:
+      - local
+
+  templates:
+    container_name: "portainer-tpl"
+    image: portainer/templates
+    volumes:
+     - ./templates:/usr/share/nginx/html/
+    networks:
+      - local
+
+  portainer:
+    container_name: "portainer-app"
+    image: portainer/portainer
+    command: --templates http://templates/templates.json -d /data
+    depends_on:
+      - templates
+    ports:
+      - "9000:9000"
+    networks:
+      - local
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./data:/data
 
   test:
     container_name: "python-redis-test"
     extends:
-        file: ./src/python-redis-test/docker-compose.yml
-        service: python-redis-test
+      file: ./src/python-redis-test/docker-compose.yml
+      service: python-redis-test
     depends_on:
      - redis
+    networks:
+      - local
 
   redis:
-    container_name: "redis-storage"
-    image: "redis:alpine"
+    container_name: "storage-redis"
+    image: redis:alpine
+    networks:
+      - local
+
+networks:
+  local:
+    driver: bridge

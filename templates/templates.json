@@ -1,0 +1,75 @@
+[
+  {
+    "title": "Auto Updates",
+    "description": "Automatically update running containers",
+    "logo": "http://www.eticaretci.com/images/icon-guncelleme.png",
+    "image": "centurylink/watchtower:latest",
+    "ports": [
+    ]
+  },
+  {
+    "title": "Nginx Server",
+    "description": "High performance web server",
+    "logo": "https://www.phusionpassenger.com/library/images/nginx-37d95ef9.png",
+    "image": "nginx:latest",
+    "ports": [
+      "80/tcp",
+      "443/tcp"
+    ]
+  },
+  {
+    "title": "PostgreSQL",
+    "description": "The most advanced open-source database",
+    "logo": "http://tecadmin.net/wp-content/uploads/2013/04/Postgres-Logo.png",
+    "image": "postgres:latest",
+    "env": [
+      {
+        "name": "POSTGRES_PASSWORD",
+        "label": "Superuser password"
+      }
+    ],
+    "ports": [
+      "5432/tcp"
+    ],
+    "volumes": [
+      "/var/lib/postgresql/data"
+    ]
+  },
+  {
+    "title": "MongoDB",
+    "description": "Open-source document-oriented database",
+    "logo": "https://cloudinovasi.id/assets/img/logos/mongo.png",
+    "image": "mongo:latest",
+    "ports": [
+      "27017/tcp"
+    ],
+    "volumes": [
+      "/data/db"
+    ]
+  },
+  {
+    "title": "Elasticsearch",
+    "description": "Open-source search and analytics engine",
+    "logo": "https://cloudinovasi.id/assets/img/logos/elasticsearch.png",
+    "image": "elasticsearch:latest",
+    "ports": [
+      "9200/tcp",
+      "9300/tcp"
+    ],
+    "volumes": [
+      "/usr/share/elasticsearch/data"
+    ]
+  },
+  {
+    "title": "Redis",
+    "description": "Open-source in-memory data structure store",
+    "logo": "https://cloudinovasi.id/assets/img/logos/redis.png",
+    "image": "redis:alpine",
+    "ports": [
+      "6379/tcp"
+    ],
+    "volumes": [
+      "/data"
+    ]
+  }
+]

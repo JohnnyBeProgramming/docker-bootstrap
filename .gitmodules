@@ -1,3 +1,0 @@
-[submodule "src/portainer"]
-	path = src/portainer
-	url = git@github.com:portainer/portainer-compose.git
