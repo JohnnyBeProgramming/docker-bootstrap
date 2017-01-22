@@ -13,7 +13,7 @@ Vagrant.configure(2) do |config|
   end
   config.vm.define :dev do |dev|
     dev.vm.network "private_network", ip: "10.100.199.200"
-    dev.vm.provision :shell, path: "bootstrap.sh"
+    dev.vm.provision :shell, path: "./definitions/ansible/bootstrap.sh"
     dev.vm.provision :shell,
       inline: 'PYTHONUNBUFFERED=1 ansible-playbook \
         /vagrant/definitions/ansible/dev.yml -c local'
