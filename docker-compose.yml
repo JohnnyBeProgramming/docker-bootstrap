@@ -1,22 +1,13 @@
 version: '2'
 services:
-
-  gateway:
-    container_name: "gateway"
+  www:
+    container_name: "www"
     extends:
       file: ./src/nginx/docker-compose.yml
       service: gateway
     depends_on:
      - test
      - portainer
-    networks:
-      - local
-
-  templates:
-    container_name: "portainer-tpl"
-    image: portainer/templates
-    volumes:
-     - ./definitions/portainer:/usr/share/nginx/html/
     networks:
       - local
 
@@ -32,7 +23,15 @@ services:
       - local
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./data:/data
+      - ./data/portainer:/data
+
+  templates:
+    container_name: "portainer-tpl"
+    image: portainer/templates
+    volumes:
+     - ./definitions/portainer:/usr/share/nginx/html/
+    networks:
+      - local
 
   test:
     container_name: "python-redis-test"
