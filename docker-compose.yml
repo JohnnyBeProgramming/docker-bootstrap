@@ -1,7 +1,7 @@
 version: '2'
 services:
-  www:
-    container_name: "www"
+  http:
+    container_name: "http"
     extends:
       file: ./src/nginx/docker-compose.yml
       service: gateway
@@ -12,24 +12,17 @@ services:
       - local
 
   portainer:
-    container_name: "portainer-app"
-    image: portainer/portainer
-    command: --templates http://templates/app.templates.json -d /data
+    extends:
+      file: ./devops/portainer/docker-compose.yml
+      service: portainer-app
     depends_on:
-      - templates
-    ports:
-      - "9000:9000"
+      - portainer-tpl
     networks:
       - local
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./data/portainer:/data
-
-  templates:
-    container_name: "portainer-tpl"
-    image: portainer/templates
-    volumes:
-     - ./definitions/portainer:/usr/share/nginx/html/
+  portainer-tpl:
+    extends:
+      file: ./devops/portainer/docker-compose.yml
+      service: portainer-tpl
     networks:
       - local
 
