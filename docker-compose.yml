@@ -1,4 +1,7 @@
 version: '2'
+networks:
+  local:
+    driver: bridge
 services:
   http:
     container_name: "http"
@@ -6,10 +9,11 @@ services:
       file: ./src/nginx/docker-compose.yml
       service: gateway
     depends_on:
-     - test
      - portainer
+     - tests-python
     networks:
       - local
+
 
   portainer:
     extends:
@@ -26,22 +30,18 @@ services:
     networks:
       - local
 
-  test:
-    container_name: "python-redis-test"
+
+  tests-python:
     extends:
-      file: ./src/python-redis-test/docker-compose.yml
-      service: python-redis-test
+      file: ./src/tests/python-redis/docker-compose.yml
+      service: tests-python
     depends_on:
-     - redis
+     - tests-python-redis
     networks:
       - local
-
-  redis:
-    container_name: "storage-redis"
-    image: redis:alpine
+  tests-python-redis:
+    extends:
+      file: ./src/tests/python-redis/docker-compose.yml
+      service: tests-python-redis
     networks:
       - local
-
-networks:
-  local:
-    driver: bridge
