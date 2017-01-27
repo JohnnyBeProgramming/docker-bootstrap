@@ -4,7 +4,7 @@ from flask import Flask
 from redis import Redis
 
 app = Flask(__name__)
-redis = Redis(host=os.getenv('TEST_STORAGE_REDIS', 'redis'), port=6379)
+redis = Redis(host=os.getenv('TEST_STORAGE_REDIS', '__redis_storage_not_defined__'), port=os.getenv('TEST_STORAGE_PORT', 6379))
 
 @app.route('/')
 def hello():
