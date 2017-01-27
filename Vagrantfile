@@ -16,7 +16,7 @@ Vagrant.configure(2) do |config|
     dev.vm.provision :shell, path: "./definitions/ansible/bootstrap.sh"
     dev.vm.provision :shell,
       inline: 'PYTHONUNBUFFERED=1 ansible-playbook \
-        /vagrant/definitions/ansible/dev.yml -c local'
+        /vagrant/devops/ansible/ansible/dev.yml -c local'
   end
   if Vagrant.has_plugin?("vagrant-cachier")
     config.cache.scope = :box
