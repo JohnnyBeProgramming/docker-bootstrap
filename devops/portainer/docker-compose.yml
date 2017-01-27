@@ -3,7 +3,7 @@ services:
   portainer-app:
     container_name: "portainer-app"
     image: portainer/portainer
-    command: --templates http://templates/app.templates.json -d /data
+    command: --templates http://portainer-tpl/app.templates.json -d /data
     ports:
       - "9999:9000"
     volumes:
