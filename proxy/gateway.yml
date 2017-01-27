@@ -1,0 +1,21 @@
+version: '2'
+services:
+
+  http:
+    container_name: "http"
+    image: "proxy/http:latest"
+    build: ./http
+    ports:
+      - "80:80"
+    environment:
+      STAGE: insecure
+
+  https:
+    container_name: "https"
+    image: "proxy/https:latest"
+    build: ./https
+    ports:
+      - '443:443'
+    environment:
+      STAGE: local # or 'production'
+      DOMAINS: 'localhost.com'
