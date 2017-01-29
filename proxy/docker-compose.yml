@@ -5,8 +5,6 @@ services:
     container_name: "http"
     image: "proxy/http:latest"
     build: ./http
-    ports:
-      - "80:80"
     environment:
       STAGE: insecure
 
@@ -14,8 +12,6 @@ services:
     container_name: "https"
     image: "proxy/https:latest"
     build: ./https
-    ports:
-      - '443:443'
     environment:
-      STAGE: local # or 'production'
-      DOMAINS: 'localhost.com'
+      STAGE: local # or "production"
+      DOMAINS: "example.com"

@@ -2,15 +2,26 @@ version: '2'
 networks:
   local:
     driver: bridge
-
 services:
+
   http:
     extends:
-      file: ./proxy/gateway.yml
+      file: ./proxy/docker-compose.yml
       service: http
     depends_on:
      - portainer
      - tests-python
+    ports:
+      - "8080:80"
+    networks:
+      - local
+
+  https:
+    extends:
+      file: ./proxy/docker-compose.yml
+      service: https
+    ports:
+      - "8443:443"
     networks:
       - local
 
@@ -37,6 +48,7 @@ services:
      - tests-python-redis
     networks:
       - local
+
   tests-python-redis:
     extends:
       file: ./src/tests/python/docker-compose.yml
