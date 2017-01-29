@@ -7,6 +7,9 @@ services:
     build: ./http
     environment:
       STAGE: insecure
+    volumes:
+     - ./config:/etc/nginx/conf.d/:ro
+     - ./www:/usr/share/nginx/html:ro
 
   https:
     container_name: "https"
@@ -15,3 +18,6 @@ services:
     environment:
       STAGE: local # or "production"
       DOMAINS: "example.com"
+    volumes:
+     #- ./.data/certs:/var/lib/https-portal
+     - ./www:/var/www/vhosts/example.com/:ro
