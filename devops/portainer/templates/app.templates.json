@@ -71,5 +71,14 @@
     "volumes": [
       "/data"
     ]
+  },
+  {
+    "title": "Grafana",
+    "description": "Open-source graphing and dashboard tool",
+    "logo": "http://cyphree.architektur-bau.hs-augsburg.de/grafana/public/img/grafana_icon.svg",
+    "image": "grafana/grafana",
+    "ports": [
+      "3000/tcp"
+    ]
   }
 ]
