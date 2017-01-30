@@ -7,8 +7,9 @@ services:
     build: ./http
     environment:
       STAGE: insecure
+      #DOMAINS: "example.com"
     volumes:
-     - ./config:/etc/nginx/conf.d/:ro
+     - ./http/config:/etc/nginx/conf.d/:ro
      - ./www:/usr/share/nginx/html:ro
 
   https:
@@ -18,7 +19,10 @@ services:
     environment:
       STAGE: local # or "production"
       DOMAINS: "example.com"
-      #DOMAINS: 'test.example.com -> https://python/, manage.example.com -> https://protainer'
+      #DOMAINS: "example.com -> https://https/, test.example.com -> https://python/, manage.example.com -> https://protainer"
     volumes:
-     #- ./certs:/var/lib/https-portal
+     - ./https/.certs:/var/lib/https-portal:rw
+     #- ./https/config/example.com.conf.erb:/var/lib/nginx-conf/example.com.conf.erb:ro
+     #- ./https/config/example.com.ssl.conf.erb:/var/lib/nginx-conf/example.com.ssl.conf.erb:ro
+     #- ./https/configx:/var/lib/nginx-conf/:rw
      - ./www:/var/www/vhosts/example.com/:ro

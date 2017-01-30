@@ -4,23 +4,16 @@ networks:
     driver: bridge
 services:
 
-  http:
+  proxy:
+    container_name: "proxy"
     extends:
       file: ./proxy/docker-compose.yml
-      service: http
+      service: https # Specify `https` instead for a secure connection
     depends_on:
      - portainer
      - tests-python
     ports:
       - "8080:80"
-    networks:
-      - local
-
-  https:
-    extends:
-      file: ./proxy/docker-compose.yml
-      service: https
-    ports:
       - "8443:443"
     networks:
       - local
@@ -31,6 +24,8 @@ services:
       service: portainer-app
     depends_on:
       - portainer-tpl
+    ports:
+      - "9000:9000"
     networks:
       - local
   portainer-tpl:
