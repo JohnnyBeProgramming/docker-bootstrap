@@ -22,7 +22,6 @@ services:
       #DOMAINS: "example.com -> https://https/, test.example.com -> https://python/, manage.example.com -> https://protainer"
     volumes:
      - ./https/.certs:/var/lib/https-portal:rw
-     #- ./https/config/example.com.conf.erb:/var/lib/nginx-conf/example.com.conf.erb:ro
-     #- ./https/config/example.com.ssl.conf.erb:/var/lib/nginx-conf/example.com.ssl.conf.erb:ro
-     #- ./https/configx:/var/lib/nginx-conf/:rw
+     - ./https/config/routes.conf.erb:/var/lib/nginx-conf/my.example.com.conf.erb:ro
+     - ./https/config/routes.ssl.conf.erb:/var/lib/nginx-conf/my.example.com.ssl.conf.erb:ro
      - ./www:/var/www/vhosts/example.com/:ro
