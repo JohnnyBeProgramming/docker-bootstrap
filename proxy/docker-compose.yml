@@ -10,7 +10,7 @@ services:
       DOMAINS: "example.com"
     volumes:
      - ./http/config:/etc/nginx/conf.d/:ro
-     - ./www:/usr/share/nginx/html:ro
+     - ../www:/usr/share/nginx/html:ro
 
   https:
     container_name: "https"
@@ -24,4 +24,4 @@ services:
      - ./https/.certs:/var/lib/https-portal:rw
      - ./https/config/routes.conf.erb:/var/lib/nginx-conf/my.example.com.conf.erb:ro
      - ./https/config/routes.ssl.conf.erb:/var/lib/nginx-conf/my.example.com.ssl.conf.erb:ro
-     - ./www:/var/www/vhosts/example.com/:ro
+     - ../www:/var/www/vhosts/example.com/:ro
