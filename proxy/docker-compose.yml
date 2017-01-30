@@ -18,7 +18,7 @@ services:
     environment:
       STAGE: local # or "production"
       DOMAINS: "example.com"
-      #DOMAINS: 'my.example.domain -> https://letsencrypt.org, another.example.domain -> https://another.upstream'
+      #DOMAINS: 'test.example.com -> https://python/, manage.example.com -> https://protainer'
     volumes:
-     #- ./.data/certs:/var/lib/https-portal
+     #- ./certs:/var/lib/https-portal
      - ./www:/var/www/vhosts/example.com/:ro
