@@ -7,7 +7,7 @@ services:
     build: ./http
     environment:
       STAGE: insecure
-      #DOMAINS: "example.com"
+      DOMAINS: "example.com"
     volumes:
      - ./http/config:/etc/nginx/conf.d/:ro
      - ./www:/usr/share/nginx/html:ro

@@ -8,7 +8,7 @@ services:
     container_name: "proxy"
     extends:
       file: ./proxy/docker-compose.yml
-      service: https # Specify `https` instead for a secure connection
+      service: http # Specify `https` instead for a secure connection
     depends_on:
      - portainer
      - tests-python
