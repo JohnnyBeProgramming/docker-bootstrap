@@ -77,6 +77,13 @@
     "description": "Open-source graphing and dashboard tool",
     "logo": "http://cyphree.architektur-bau.hs-augsburg.de/grafana/public/img/grafana_icon.svg",
     "image": "grafana/grafana",
+    "env": [
+      {
+        "name": "GF_SECURITY_ADMIN_PASSWORD",
+        "label": "Superuser password",
+        "value": "secret"
+      }
+    ],
     "ports": [
       "3000/tcp"
     ]
