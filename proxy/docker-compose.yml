@@ -9,6 +9,7 @@ services:
       STAGE: insecure
       DOMAINS: "example.com"
     volumes:
+     - ./http/certs:/etc/nginx/certs/:ro
      - ./http/config:/etc/nginx/conf.d/:ro
      - ../www:/usr/share/nginx/html:ro
 
