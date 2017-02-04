@@ -1,0 +1,6 @@
+#!/bin/bash
+
+TARGET_NAME=${1:-devops}
+
+echo "Connecting VM: ${TARGET_NAME}..."
+vagrant ssh "${TARGET_NAME}"
