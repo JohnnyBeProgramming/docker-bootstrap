@@ -1,0 +1,7 @@
+- hosts: prod
+  remote_user: vagrant
+  sudo: yes
+  roles:
+    - docker
+  vars_files:
+    - vars/common.yml
