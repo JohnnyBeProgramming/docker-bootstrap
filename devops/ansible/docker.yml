@@ -3,3 +3,5 @@
   sudo: yes
   roles:
     - docker
+  vars_files:
+    - vars/common.yml
