@@ -18,6 +18,15 @@ services:
     networks:
       - local
 
+  registry:
+    extends:
+      file: ./devops/registry/docker-compose.yml
+      service: registry
+    ports:
+      - "5000:5000"
+    networks:
+      - local
+
   portainer:
     extends:
       file: ./devops/portainer/docker-compose.yml
