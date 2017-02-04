@@ -1,0 +1,6 @@
+#!/bin/bash
+
+TARGET_NAME=${1:-docker}
+
+echo "Installing dependencies: ${TARGET_NAME}..."
+ansible-playbook "./ansible/${TARGET_NAME}.yml" -i "./hosts/${TARGET_NAME}"
