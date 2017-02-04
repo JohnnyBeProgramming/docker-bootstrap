@@ -1,3 +1,0 @@
-[submodule "devops/ansible/roles/docker-registry"]
-	path = devops/ansible/roles/docker-registry
-	url = git://github.com/fupelaqu/ansible-docker-registry.git

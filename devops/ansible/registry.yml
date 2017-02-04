@@ -1,7 +1,0 @@
-- hosts: docker-registry
-  user: vagrant
-  sudo: yes
-  roles:
-    - docker-registry
-  vars_files:
-    - vars/common.yml
