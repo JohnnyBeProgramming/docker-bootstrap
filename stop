@@ -1,0 +1,7 @@
+#!/bin/bash
+
+TARGET_NAME=${1:-proxy}
+
+echo "Stopping container: ${TARGET_NAME}..."
+docker-compose down
+echo "Done."

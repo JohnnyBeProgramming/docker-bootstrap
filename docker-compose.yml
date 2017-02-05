@@ -10,6 +10,7 @@ services:
       file: ./proxy/docker-compose.yml
       service: http # Specify `https` instead for a secure connection
     depends_on:
+     - registry
      - portainer
      - tests-python
     ports:

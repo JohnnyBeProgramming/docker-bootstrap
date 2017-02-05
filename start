@@ -1,0 +1,7 @@
+#!/bin/bash
+
+TARGET_NAME=${1:-proxy}
+
+echo "Starting container: ${TARGET_NAME}..."
+docker-compose up -d --build "${TARGET_NAME}"
+echo "Done."
