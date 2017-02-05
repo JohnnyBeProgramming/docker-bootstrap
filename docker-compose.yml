@@ -23,8 +23,6 @@ services:
     extends:
       file: ./devops/registry/docker-compose.yml
       service: registry
-    ports:
-      - "5000:5000"
     networks:
       - local
 
@@ -34,8 +32,6 @@ services:
       service: portainer-app
     depends_on:
       - portainer-tpl
-    ports:
-      - "9000:9000"
     networks:
       - local
   portainer-tpl:

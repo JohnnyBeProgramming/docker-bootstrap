@@ -8,8 +8,6 @@ services:
      - TEST_STORAGE_REDIS=test-python-redis
     volumes:
      - ./src:/src
-    ports:
-     - "5555:5000"
 
   tests-python-redis:
     container_name: "test-python-redis"
