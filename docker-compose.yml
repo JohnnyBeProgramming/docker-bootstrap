@@ -26,13 +26,13 @@ services:
 
   registrator:
     image: gliderlabs/registrator:master
-    container_name: "registrator"
     hostname: registrator
+    container_name: "registrator"
+    command: "-internal consul://consul-host:8500"
     depends_on:
      - consul-host
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock
-    command: "-internal consul://consul-host:8500"
     networks:
       - public
 
