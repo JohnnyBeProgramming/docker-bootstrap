@@ -1,7 +1,10 @@
 version: '2'
 networks:
-  local:
+  public:
     driver: bridge
+  private:
+    driver: bridge
+
 services:
 
   proxy:
@@ -10,6 +13,7 @@ services:
       file: ./proxy/docker-compose.yml
       service: http # Specify `https` instead for a secure connection
     depends_on:
+     - consul-host
      - registry
      - portainer
      - tests-python
@@ -17,14 +21,21 @@ services:
       - "8080:80"
       - "8443:443"
     networks:
-      - local
+      - public
+
+  consul-host:
+    extends:
+      file: ./devops/consol/docker-compose.yml
+      service: consul-host
+    networks:
+      - public
 
   registry:
     extends:
       file: ./devops/registry/docker-compose.yml
       service: registry
     networks:
-      - local
+      - public
 
   portainer:
     extends:
@@ -33,13 +44,14 @@ services:
     depends_on:
       - portainer-tpl
     networks:
-      - local
+      - public
+
   portainer-tpl:
     extends:
       file: ./devops/portainer/docker-compose.yml
       service: portainer-tpl
     networks:
-      - local
+      - public
 
   tests-python:
     extends:
@@ -48,11 +60,11 @@ services:
     depends_on:
      - tests-python-redis
     networks:
-      - local
+      - public
 
   tests-python-redis:
     extends:
       file: ./src/tests/python/docker-compose.yml
       service: tests-python-redis
     networks:
-      - local
+      - public
