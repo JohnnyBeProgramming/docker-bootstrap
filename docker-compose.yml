@@ -14,12 +14,25 @@ services:
       service: http # Specify `https` instead for a secure connection
     depends_on:
      - consul-host
+     - registrator
      - registry
      - portainer
      - tests-python
     ports:
       - "8080:80"
       - "8443:443"
+    networks:
+      - public
+
+  registrator:
+    image: gliderlabs/registrator:master
+    container_name: "registrator"
+    hostname: registrator
+    depends_on:
+     - consul-host
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock
+    command: "-internal consul://consul-host:8500"
     networks:
       - public
 
