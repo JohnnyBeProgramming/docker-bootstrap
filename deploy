@@ -1,0 +1,20 @@
+#!/bin/bash
+
+TARGET_NAME=${1:-}
+TARGET_HOST=${2:-}
+
+if [ ! "${TARGET_HOST}" == "" ]
+then
+    export DOCKER_HOST="tcp://${TARGET_HOST}:2375"
+fi
+
+if [ ! "${TARGET_NAME}" == "" ]
+then
+    echo "Deploying '${TARGET_NAME}' to '${TARGET_HOST}'"
+    docker-compose up -d "${TARGET_NAME}"
+    echo "Done."
+else
+    echo "Deploying defaults to '${TARGET_HOST}'"
+    docker-compose up -d
+    echo "Done."
+fi
