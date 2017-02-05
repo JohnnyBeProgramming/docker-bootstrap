@@ -1,0 +1,26 @@
+#!/bin/bash
+
+TARGET_NAME=${1:-}
+
+if [ ! "${TARGET_NAME}" == "" ]
+then
+    echo "Building image: ${TARGET_NAME}..."
+    docker build -t "example.com:5000/${TARGET_NAME}:latest" "${TARGET_NAME}"
+    echo "Done."
+else
+    echo "Building all images..."
+
+    docker build -t "example.com:5000/proxy/http:latest" "proxy/http"
+    docker build -t "example.com:5000/proxy/https:latest" "proxy/https"
+
+    docker build -t "example.com:5000/src/tests/python/app:latest" "src/tests/python"
+    docker build -t "example.com:5000/src/tests/python/redis:latest" "src/tests/python/redis"
+
+    docker build -t "example.com:5000/devops/portainer/app:latest" "devops/portainer"
+    docker build -t "example.com:5000/devops/portainer/templates:latest" "devops/portainer/templates"
+
+    echo "Done."
+fi
+
+echo "Listing domain-specific images..."
+docker images | sort | grep example.com:5000

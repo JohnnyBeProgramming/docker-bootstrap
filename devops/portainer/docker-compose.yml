@@ -3,7 +3,8 @@ services:
 
   portainer-app:
     container_name: "portainer-app"
-    image: portainer/portainer
+    image: "example.com:5000/devops/portainer/app:latest"
+    build: .
     command: --templates http://portainer-tpl/app.templates.json -d /data
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -11,6 +12,7 @@ services:
 
   portainer-tpl:
     container_name: "portainer-tpl"
-    image: portainer/templates
+    image: "example.com:5000/devops/portainer/templates:latest"
+    build: .
     volumes:
      - ./templates:/usr/share/nginx/html/

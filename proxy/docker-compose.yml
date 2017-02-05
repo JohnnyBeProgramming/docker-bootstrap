@@ -3,7 +3,7 @@ services:
 
   http:
     container_name: "http"
-    image: "proxy/http:latest"
+    image: "example.com:5000/proxy/http:latest"
     build: ./http
     environment:
       STAGE: insecure
@@ -15,7 +15,7 @@ services:
 
   https:
     container_name: "https"
-    image: "proxy/https:latest"
+    image: "example.com:5000/proxy/https:latest"
     build: ./https
     environment:
       STAGE: local # or "production"
