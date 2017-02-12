@@ -6,27 +6,18 @@ services:
     container_name: "consul-host"
     hostname: "consul-host"
     command: "-server -bootstrap -ui-dir /ui"
+    environment:
+     - SERVICE_NAME=consol-host
     ports:
       - "8400:8400"
       - "8500:8500"
       - "8600:53"
 
-  consul-secondary:
+  consul-slave:
     image: "progrium/consul:latest"
-    container_name: "consul-secondary"
-    hostname: "consul-secondary"
-    expose:
-      - "8400"
-      - "8500"
-      - "8600"
-    command: "-server -join consul-host"
-    depends_on:
-      - consul-host
-
-  consul-backup:
-    image: "progrium/consul:latest"
-    container_name: "consul-backup"
-    hostname: "consul-backup"
+    hostname: "consul-slave"
+    environment:
+     - SERVICE_NAME=consol-slave
     expose:
       - "8400"
       - "8500"

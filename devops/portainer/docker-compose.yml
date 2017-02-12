@@ -6,6 +6,8 @@ services:
     image: "example.com:5000/devops/portainer/app:latest"
     build: .
     command: --templates http://portainer-tpl/app.templates.json -d /data
+    environment:
+     - SERVICE_NAME=portainer-app
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./.data:/data
@@ -14,5 +16,7 @@ services:
     container_name: "portainer-tpl"
     image: "example.com:5000/devops/portainer/templates:latest"
     build: .
+    environment:
+     - SERVICE_NAME=portainer-tpl
     volumes:
      - ./templates:/usr/share/nginx/html/
