@@ -1,5 +1,5 @@
 template {
   source = "./templates/routes.ctmpl"
-  destination = "./generated/routes.conf"
+  destination = "./config/routes.conf"
   command = "docker kill -s HUP proxy"
 }
