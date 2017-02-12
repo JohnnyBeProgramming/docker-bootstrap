@@ -26,3 +26,22 @@ services:
      - ./https/config/routes.conf.erb:/var/lib/nginx-conf/my.example.com.conf.erb:ro
      - ./https/config/routes.ssl.conf.erb:/var/lib/nginx-conf/my.example.com.ssl.conf.erb:ro
      - ../www:/var/www/vhosts/example.com/:ro
+
+  nginx-consul-template:
+    container_name: "nginx-consul-template"
+    image: "shufo/nginx-consul-template"
+    environment:
+      CONSUL_URL: "consul-host:8500"
+      CONSUL_KV_PREFIX: "nginx"
+    ports:
+      - "8011:80"
+
+  router:
+    container_name: "router"
+    image: "example.com:5000/proxy/router:latest"
+    build: ./router
+    environment:
+      CONSUL_URL: "example.com:8500"
+    volumes:
+     - ./router:/consul-templates/
+
