@@ -34,8 +34,9 @@ services:
     image: "example.com:5000/proxy:gateway"
     build: ./gateway
     environment:
-      CONSUL_URL: "example.com:8500"
+      CONSUL_URL: "consul-host:8500"
     volumes:
      - ../www:/usr/share/nginx/html:ro
-     - ./config:/etc/nginx/conf.d/:ro
      - ./certs:/etc/nginx/certs/:ro
+     - ./config:/etc/nginx/conf.d/:rw
+

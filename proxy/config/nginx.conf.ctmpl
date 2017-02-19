@@ -1,18 +1,20 @@
 # ----------------------------------------------------
 # Server definitions
 # ----------------------------------------------------
+include /etc/nginx/conf.d/upstreams/admin.conf;
 
 server {
   listen 80;
   server_name  example.com;
 
   include /etc/nginx/conf.d/locations/default.conf;
+  include /etc/nginx/conf.d/locations/admin.conf;
 
   # ----------------------------------------------------
   # Dynamic proxies
   # ----------------------------------------------------
 {{ range $service := services }}{{ if ne .Name "consul" }}
-  location /proxy/{{ $service.Name }}/ {
+  location /{{ $service.Name }}/ {
     proxy_pass http://{{ $service.Name }};
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header Host $host;
@@ -32,12 +34,13 @@ server {
   ssl_ciphers         HIGH:!aNULL:!MD5;
 
   include /etc/nginx/conf.d/locations/default.conf;
+  include /etc/nginx/conf.d/locations/admin.conf;
 
   # ----------------------------------------------------
   # Dynamic proxies
   # ----------------------------------------------------
 {{ range $service := services }}{{ if ne .Name "consul" }}
-  location /proxy/{{ $service.Name }}/ {
+  location /{{ $service.Name }}/ {
     proxy_pass http://{{ $service.Name }};
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header Host $host;

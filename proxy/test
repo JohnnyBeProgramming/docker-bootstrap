@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
 
-CONSUL_URL=${CONSUL_URL:-example.com:8500}
+CONSUL_URL=${CONSUL_URL:-consul:8500}
 
 consul-template -consul=$CONSUL_URL -template="config/nginx.conf.ctmpl:config/nginx.conf.test" -once
