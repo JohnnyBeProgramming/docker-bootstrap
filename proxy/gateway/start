@@ -3,7 +3,7 @@ set -e
 
 CONSUL_URL=${CONSUL_URL:-example.com:8500}
 CONFIG_SRC=${CONFIG_SRC:-/etc/nginx/conf.d/nginx.conf.ctmpl}
-CONFIG_DST=${CONFIG_DST:-/etc/nginx/conf.d/nginx.conf.new}
+CONFIG_DST=${CONFIG_DST:-/etc/nginx/conf.d/nginx.conf}
 CONFIG_CMD=${CONFIG_CMD:-service nginx reload}
 
 service nginx start

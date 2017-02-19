@@ -1,16 +1,4 @@
 # ----------------------------------------------------
-# Static route definitions
-# ----------------------------------------------------
-
-upstream proxy {
-    server proxy;
-}
-
-upstream config {
-    server consul-host:8500;
-}
-
-# ----------------------------------------------------
 # Server definitions
 # ----------------------------------------------------
 
@@ -18,16 +6,11 @@ server {
   listen 80;
   server_name  example.com;
 
-  location / {
-    root /usr/share/nginx/html;
-  }
+  include /etc/nginx/conf.d/locations/default.conf;
 
-  location /config/ {
-    proxy_http_version 1.1;
-    proxy_set_header Connection "";
-    proxy_pass https://config/ui/;
-  }
-
+  # ----------------------------------------------------
+  # Dynamic proxies
+  # ----------------------------------------------------
 {{ range $service := services }}{{ if ne .Name "consul" }}
   location /proxy/{{ $service.Name }}/ {
     proxy_pass http://{{ $service.Name }};
@@ -48,16 +31,11 @@ server {
   ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
   ssl_ciphers         HIGH:!aNULL:!MD5;
 
-  location / {
-    root /usr/share/nginx/html;
-  }
+  include /etc/nginx/conf.d/locations/default.conf;
 
-  location /config/ {
-    proxy_http_version 1.1;
-    proxy_set_header Connection "";
-    proxy_pass https://config/ui/;
-  }
-
+  # ----------------------------------------------------
+  # Dynamic proxies
+  # ----------------------------------------------------
 {{ range $service := services }}{{ if ne .Name "consul" }}
   location /proxy/{{ $service.Name }}/ {
     proxy_pass http://{{ $service.Name }};
