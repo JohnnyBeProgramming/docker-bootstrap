@@ -35,6 +35,8 @@ services:
     build: ./gateway
     environment:
       CONSUL_URL: "consul-host:8500"
+      #CONFIG_SRC: "/etc/nginx/conf.d/nginx.proxies.ctmpl"
+      #CONFIG_DST: "/etc/nginx/conf.d/nginx.tmp.conf"
     volumes:
      - ../www:/usr/share/nginx/html:ro
      - ./certs:/etc/nginx/certs/:ro

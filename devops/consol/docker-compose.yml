@@ -7,7 +7,7 @@ services:
     hostname: "consul-host"
     command: "-server -bootstrap -ui-dir /ui"
     environment:
-     - SERVICE_NAME=consol-host
+     - SERVICE_NAME=consul-host
     ports:
       - "8400:8400"
       - "8500:8500"

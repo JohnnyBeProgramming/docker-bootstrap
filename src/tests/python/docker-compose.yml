@@ -7,6 +7,7 @@ services:
     environment:
      - TEST_STORAGE_REDIS=tests-python-redis
      - SERVICE_NAME=test-py
+     - SERVICE_TAGS=app,test
     ports:
       - "5000"
     volumes:
@@ -18,3 +19,4 @@ services:
     build: ./redis
     environment:
      - SERVICE_NAME=test-redis
+     - SERVICE_TAGS=svc,test
