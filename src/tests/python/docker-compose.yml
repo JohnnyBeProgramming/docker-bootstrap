@@ -19,4 +19,4 @@ services:
     build: ./redis
     environment:
      - SERVICE_NAME=test-redis
-     - SERVICE_TAGS=svc,test
+     - SERVICE_TAGS=api,test

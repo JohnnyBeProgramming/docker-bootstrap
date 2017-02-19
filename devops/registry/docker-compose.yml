@@ -5,3 +5,7 @@ services:
     container_name: "registry"
     image: "example.com:5000/devops/registry:latest"
     build: .
+    environment:
+     - SERVICE_NAME=registry
+     - SERVICE_TAGS=api
+

@@ -9,6 +9,8 @@ services:
       - ./.data:/var/lib/drone/
     restart: always
     environment:
+      - SERVICE_NAME=drone-server
+      - SERVICE_TAGS=api
       - DRONE_OPEN=true
       - DRONE_GITHUB=true
       - DRONE_GITHUB_CLIENT=${DRONE_GITHUB_CLIENT}
@@ -23,5 +25,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
+      - SERVICE_NAME=drone-agent
+      - SERVICE_TAGS=app
       - DRONE_SERVER=ws://drone-server:8000/ws/broker
       - DRONE_SECRET=${DRONE_SECRET}

@@ -2,9 +2,10 @@ version: '2'
 networks:
   public:
     driver: bridge
-
 services:
-
+  # -----------------------------------------------------------------------------------------
+  # Public Proxy
+  # -----------------------------------------------------------------------------------------
   proxy:
     container_name: "proxy"
     extends:
@@ -14,14 +15,16 @@ services:
      - consul-host
      - registrator
      - registry
-     - portainer
-     - tests-python
     ports:
       - "8080:80"
       - "8443:443"
     networks:
       - public
 
+
+  # -----------------------------------------------------------------------------------------
+  # Devops internals
+  # -----------------------------------------------------------------------------------------
   consul-host:
     container_name: "consul-host"
     extends:
@@ -42,6 +45,10 @@ services:
     networks:
       - public
 
+
+  # -----------------------------------------------------------------------------------------
+  # Build and promotion pipeline
+  # -----------------------------------------------------------------------------------------
   registry:
     extends:
       file: ./devops/registry/docker-compose.yml
@@ -49,6 +56,10 @@ services:
     networks:
       - public
 
+
+  # -----------------------------------------------------------------------------------------
+  # Docker administration
+  # -----------------------------------------------------------------------------------------
   portainer:
     extends:
       file: ./devops/portainer/docker-compose.yml
@@ -65,6 +76,10 @@ services:
     networks:
       - public
 
+
+  # -----------------------------------------------------------------------------------------
+  # Testing containers
+  # -----------------------------------------------------------------------------------------
   tests-python:
     extends:
       file: ./src/tests/python/docker-compose.yml
