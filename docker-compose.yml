@@ -9,7 +9,7 @@ services:
     container_name: "proxy"
     extends:
       file: ./proxy/docker-compose.yml
-      service: http # Specify `https` instead for a secure connection
+      service: http # Specify `http`, `https` or `gateway`
     depends_on:
      - consul-host
      - registrator
@@ -22,6 +22,13 @@ services:
     networks:
       - public
 
+  consul-host:
+    extends:
+      file: ./devops/consol/docker-compose.yml
+      service: consul-host
+    networks:
+      - public
+
   registrator:
     container_name: "registrator"
     image: gliderlabs/registrator:master
@@ -31,13 +38,6 @@ services:
      - consul-host
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock
-    networks:
-      - public
-
-  consul-host:
-    extends:
-      file: ./devops/consol/docker-compose.yml
-      service: consul-host
     networks:
       - public
 

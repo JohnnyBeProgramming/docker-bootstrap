@@ -10,8 +10,8 @@ then
 else
     echo "Building all images..."
 
-    docker build -t "example.com:5000/proxy/http:latest" "proxy/http"
-    docker build -t "example.com:5000/proxy/https:latest" "proxy/https"
+    docker build -t "example.com:5000/proxy:http" "proxy/http"
+    docker build -t "example.com:5000/proxy:https" "proxy/https"
 
     docker build -t "example.com:5000/src/tests/python/app:latest" "src/tests/python"
     docker build -t "example.com:5000/src/tests/python/redis:latest" "src/tests/python/redis"

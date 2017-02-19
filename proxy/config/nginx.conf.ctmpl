@@ -2,6 +2,10 @@
 # Static route definitions
 # ----------------------------------------------------
 
+upstream proxy {
+    server proxy;
+}
+
 upstream config {
     server consul-host:8500;
 }
@@ -21,7 +25,7 @@ server {
   location /config/ {
     proxy_http_version 1.1;
     proxy_set_header Connection "";
-    proxy_pass http://config/ui/;
+    proxy_pass https://config/ui/;
   }
 
 {{ range $service := services }}{{ if ne .Name "consul" }}
@@ -51,7 +55,7 @@ server {
   location /config/ {
     proxy_http_version 1.1;
     proxy_set_header Connection "";
-    proxy_pass http://config/ui/;
+    proxy_pass https://config/ui/;
   }
 
 {{ range $service := services }}{{ if ne .Name "consul" }}

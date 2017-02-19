@@ -3,7 +3,7 @@ services:
 
   http:
     container_name: "http"
-    image: "example.com:5000/proxy/http:latest"
+    image: "example.com:5000/proxy:http"
     build: ./http
     environment:
       STAGE: insecure
@@ -15,7 +15,7 @@ services:
 
   https:
     container_name: "https"
-    image: "example.com:5000/proxy/https:latest"
+    image: "example.com:5000/proxy:https"
     build: ./https
     environment:
       STAGE: local # or "production"
@@ -27,12 +27,14 @@ services:
      - ./https/config/routes.ssl.conf.erb:/var/lib/nginx-conf/my.example.com.ssl.conf.erb:ro
      - ../www:/var/www/vhosts/example.com/:ro
 
-  router:
-    container_name: "router"
-    image: "example.com:5000/proxy/router:latest"
+  gateway:
+    container_name: "gateway"
+    image: "example.com:5000/proxy:gateway"
     build: ./router
     environment:
-      CONSUL_URL: "example.com:8500"
+      CONSUL_KV_PREFIX: "nginx"
+      CONSUL_PORT_8500_TCP_ADDR: "example.com"
+      CONSUL_PORT_8500_TCP_PORT: "8500"
     volumes:
-     - ./router:/consul-templates/
-
+     - ./config/nginx.conf:/etc/nginx/nginx.conf
+     - ./config/nginx.conf.ctmpl:/etc/nginx/nginx.conf.ctmpl
