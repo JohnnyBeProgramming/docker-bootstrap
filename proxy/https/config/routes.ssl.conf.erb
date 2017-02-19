@@ -1,6 +1,8 @@
 # This file overrides default nginx HTTPS settings for my.example.com
 # Mount this file as "/var/lib/nginx-conf/my.example.com.ssl.conf.erb"
 
+include /etc/nginx/conf.d/upstreams/*.conf;
+
 server {
     listen 443 ssl http2;
 
@@ -18,8 +20,10 @@ server {
 
     ssl_dhparam <%= dhparam_path %>;
 
+    include /etc/nginx/conf.d/locations/*.conf;
+
     location / {
-       return    301 <%= domain.upstream %>;
+       return    <%= domain.upstream %>;
 
        # Or if you want to hard-code it
        # return    301 https://letsencrypt.org;

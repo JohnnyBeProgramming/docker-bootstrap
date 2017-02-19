@@ -1,10 +1,11 @@
 version: '2'
 services:
   tests-python:
+    container_name: "test-python"
     image: "example.com:5000/src/tests/python/app:latest"
     build: .
     environment:
-     - TEST_STORAGE_REDIS=test-python
+     - TEST_STORAGE_REDIS=tests-python-redis
      - SERVICE_NAME=test-py
     ports:
       - "5000"
@@ -12,6 +13,7 @@ services:
      - ./src:/src
 
   tests-python-redis:
+    container_name: "tests-python-redis"
     image: "example.com:5000/src/tests/python/redis:latest"
     build: ./redis
     environment:

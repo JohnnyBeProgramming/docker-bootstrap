@@ -6,7 +6,10 @@ server {
     server_name  <%= domain.name %>;
 
     location / {
-       return    301 https://$server_name$request_uri;
+       return    https://$server_name$request_uri;
+
+       # Or if you want permanent redirect
+       #return    301 https://$server_name$request_uri;
     }
 
     # This helper sets up the path for the ACME server to verify that you own the site
