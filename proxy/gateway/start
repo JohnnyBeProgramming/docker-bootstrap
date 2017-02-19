@@ -8,4 +8,4 @@ CONFIG_CMD=${CONFIG_CMD:-service nginx reload}
 
 service nginx start
 
-consul-template -consul-addr=$CONSUL_URL -template="${CONFIG_SRC}:${CONFIG_DST}:${CONFIG_CMD}"
+consul-template -consul=$CONSUL_URL -template="${CONFIG_SRC}:${CONFIG_DST}:${CONFIG_CMD}"

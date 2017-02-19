@@ -9,7 +9,7 @@ services:
     container_name: "proxy"
     extends:
       file: ./proxy/docker-compose.yml
-      service: gateway # Specify `http`, `https` or `gateway`
+      service: http # Specify `http`, `https` or `gateway`
     depends_on:
      - consul-host
      - registrator
@@ -23,6 +23,7 @@ services:
       - public
 
   consul-host:
+    container_name: "consul-host"
     extends:
       file: ./devops/consol/docker-compose.yml
       service: consul-host
