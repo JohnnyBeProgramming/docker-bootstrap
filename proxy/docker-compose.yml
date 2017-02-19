@@ -26,8 +26,8 @@ services:
      - ./certs/data:/var/lib/https-portal:rw
      - ./config/upstreams:/etc/nginx/conf.d/upstreams:ro
      - ./config/locations:/etc/nginx/conf.d/locations:ro
-     - ./https/config/routes.conf.erb:/var/lib/nginx-conf/my.example.com.conf.erb:ro
-     - ./https/config/routes.ssl.conf.erb:/var/lib/nginx-conf/my.example.com.ssl.conf.erb:ro
+     - ./config/templates/routes.conf.erb:/var/lib/nginx-conf/my.example.com.conf.erb:ro
+     - ./config/templates/routes.ssl.conf.erb:/var/lib/nginx-conf/my.example.com.ssl.conf.erb:ro
 
   gateway:
     container_name: "gateway"
@@ -40,5 +40,7 @@ services:
     volumes:
      - ../www:/usr/share/nginx/html:ro
      - ./certs:/etc/nginx/certs/:ro
-     - ./config:/etc/nginx/conf.d/:rw
+     - ./config/upstreams:/etc/nginx/conf.d/upstreams:ro
+     - ./config/locations:/etc/nginx/conf.d/locations:ro
+     - ./config/templates/nginx.conf.ctmpl:/etc/nginx/conf.d/templates/nginx.conf.ctmpl:ro
 
