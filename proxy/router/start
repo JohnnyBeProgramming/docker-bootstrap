@@ -1,6 +1,0 @@
-#!/bin/bash
-
-set -e
-CONSUL_URL=${CONSUL_URL:-example.com:8500}
-
-consul-template -consul=$CONSUL_URL -config="config.hcl" -once

@@ -1,0 +1,11 @@
+#!/bin/bash
+set -e
+
+CONSUL_URL=${CONSUL_URL:-example.com:8500}
+CONFIG_SRC=${CONFIG_SRC:-/etc/nginx/conf.d/nginx.conf.ctmpl}
+CONFIG_DST=${CONFIG_DST:-/etc/nginx/conf.d/nginx.conf.new}
+CONFIG_CMD=${CONFIG_CMD:-service nginx reload}
+
+service nginx start
+
+consul-template -consul-addr=$CONSUL_URL -template="${CONFIG_SRC}:${CONFIG_DST}:${CONFIG_CMD}"

@@ -32,7 +32,7 @@ services:
   gateway:
     container_name: "gateway"
     image: "example.com:5000/proxy:gateway"
-    build: ./router
+    build: ./gateway
     environment:
       CONSUL_URL: "example.com:8500"
     volumes:
