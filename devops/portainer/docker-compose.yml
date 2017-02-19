@@ -7,7 +7,7 @@ services:
     build: .
     command: --templates http://portainer-tpl/app.templates.json -d /data
     environment:
-     - SERVICE_NAME=portainer-app
+     - SERVICE_NAME=admin
      - SERVICE_TAGS=app
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -18,7 +18,7 @@ services:
     image: "example.com:5000/devops/portainer/templates:latest"
     build: .
     environment:
-     - SERVICE_NAME=portainer-tpl
+     - SERVICE_NAME=admin-api
      - SERVICE_TAGS=api
     volumes:
      - ./templates:/usr/share/nginx/html/
