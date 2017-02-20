@@ -64,6 +64,7 @@
 
 <iframe name="child-frame"
         style="border: none;"
+        ng-src="{{ apps.length > 0 ? apps[0].name + '/' : 'about:blank' }}"
         ng-cloak
         flex>
 </iframe>
