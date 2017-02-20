@@ -18,7 +18,7 @@ services:
     image: "progrium/consul:latest"
     hostname: "consul-slave"
     environment:
-     - SERVICE_NAME=consol-slave
+     - SERVICE_NAME=consul-slave
      - SERVICE_TAGS=app:8500
     expose:
       - "8400"

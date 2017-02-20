@@ -6,7 +6,7 @@ services:
     image: "example.com:5000/proxy:http"
     build: ./http
     volumes:
-     - ../www:/usr/share/nginx/html:ro
+     - ../../www:/usr/share/nginx/html:ro
      - ./config:/etc/nginx/conf.d/:ro
      - ./certs:/etc/nginx/certs/:ro
 
@@ -18,7 +18,7 @@ services:
       STAGE: local # or "production"
       DOMAINS: "example.com"
     volumes:
-     - ../www:/var/www/vhosts/example.com/:ro
+     - ../../www:/var/www/vhosts/example.com/:ro
      - ./certs/data:/var/lib/https-portal:rw
      - ./config/upstreams:/etc/nginx/conf.d/upstreams:ro
      - ./config/locations:/etc/nginx/conf.d/locations:ro
@@ -34,7 +34,7 @@ services:
       #CONFIG_SRC: "/etc/nginx/conf.d/nginx.proxies.ctmpl"
       #CONFIG_DST: "/etc/nginx/conf.d/nginx.tmp.conf"
     volumes:
-      - ../www:/usr/share/nginx/html:ro
+      - ../../www:/usr/share/nginx/html:ro
       - ./certs:/etc/nginx/certs/:ro
       - ./config/upstreams:/etc/nginx/conf.d/upstreams:ro
       - ./config/locations:/etc/nginx/conf.d/locations:ro

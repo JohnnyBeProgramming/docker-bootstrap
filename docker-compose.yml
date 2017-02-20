@@ -15,7 +15,7 @@ services:
   proxy:
     container_name: "proxy"
     extends:
-      file: ./proxy/docker-compose.yml
+      file: ./components/proxy/docker-compose.yml
       service: gateway # Specify `http`, `https` or `gateway`
     depends_on:
      - consul-host
@@ -36,7 +36,7 @@ services:
   consul-host:
     container_name: "consul-host"
     extends:
-      file: ./devops/consol/docker-compose.yml
+      file: ./components/consul/docker-compose.yml
       service: consul-host
     networks:
       - public
@@ -59,7 +59,7 @@ services:
   # -----------------------------------------------------------------------------------------
   registry:
     extends:
-      file: ./devops/registry/docker-compose.yml
+      file: ./components/registry/docker-compose.yml
       service: registry
     networks:
       - public
@@ -70,7 +70,7 @@ services:
   # -----------------------------------------------------------------------------------------
   portainer:
     extends:
-      file: ./devops/portainer/docker-compose.yml
+      file: ./components/portainer/docker-compose.yml
       service: portainer-app
     depends_on:
       - portainer-tpl
@@ -79,7 +79,7 @@ services:
 
   portainer-tpl:
     extends:
-      file: ./devops/portainer/docker-compose.yml
+      file: ./components/portainer/docker-compose.yml
       service: portainer-tpl
     networks:
       - public
