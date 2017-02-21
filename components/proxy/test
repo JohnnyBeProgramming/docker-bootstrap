@@ -3,14 +3,13 @@ set -e
 
 # Set defaults
 CONSUL_URL=${CONSUL_URL:-consul:8500}
-CONSUL_SRC=${CONSUL_SRC:-config/templates/nginx.conf.ctmpl}
-CONSUL_DST=${CONSUL_DST:-config/nginx.conf.test}
 
-# Generate the template (once off)
-consul-template -consul=$CONSUL_URL -template="${CONSUL_SRC}:${CONSUL_DST}" --once
+UPSTREAM_SRC=${CONSUL_SRC:-config/templates/upstreams.conf.ctmpl}
+UPSTREAM_DST=${CONSUL_DST:-config/upstreams/proxy.conf.test}
 
-# Display the proxy config
-cat "${CONSUL_DST}"
+LOCATION_SRC=${CONSUL_SRC:-config/templates/locations.conf.ctmpl}
+LOCATION_DST=${CONSUL_DST:-config/locations/proxy.conf.test}
 
-# Restart the proxy gateway
-docker kill -s HUP proxy
+# Generate the template(s)
+consul-template -consul=$CONSUL_URL -template="${UPSTREAM_SRC}:${UPSTREAM_DST}" --once
+consul-template -consul=$CONSUL_URL -template="${LOCATION_SRC}:${LOCATION_DST}" --once

@@ -1,24 +1,23 @@
 version: '2'
 services:
 
-  portainer-app:
+  portainer:
     container_name: "portainer-app"
     image: "example.com:5000/devops/portainer/app:latest"
     build: .
     command: --templates http://portainer-tpl/app.templates.json -d /data
     environment:
-     - SERVICE_NAME=admin
+     - SERVICE_NAME=portainer
      - SERVICE_TAGS=app
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./.data:/data
 
-  portainer-tpl:
-    container_name: "portainer-tpl"
+  portainer-api:
     image: "example.com:5000/devops/portainer/templates:latest"
     build: .
     environment:
-     - SERVICE_NAME=admin-api
+     - SERVICE_NAME=portainer-api
      - SERVICE_TAGS=api
     volumes:
      - ./templates:/usr/share/nginx/html/

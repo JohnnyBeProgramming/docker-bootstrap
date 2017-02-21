@@ -71,16 +71,16 @@ services:
   portainer:
     extends:
       file: ./components/portainer/docker-compose.yml
-      service: portainer-app
+      service: portainer
     depends_on:
-      - portainer-tpl
+      - portainer-api
     networks:
       - public
 
-  portainer-tpl:
+  portainer-api:
     extends:
       file: ./components/portainer/docker-compose.yml
-      service: portainer-tpl
+      service: portainer-api
     networks:
       - public
 

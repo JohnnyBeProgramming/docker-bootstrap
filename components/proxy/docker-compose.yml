@@ -36,6 +36,6 @@ services:
     volumes:
       - ../../www:/usr/share/nginx/html:ro
       - ./certs:/etc/nginx/certs/:ro
-      - ./config/upstreams:/etc/nginx/conf.d/upstreams:ro
-      - ./config/locations:/etc/nginx/conf.d/locations:ro
-      - ./config/templates/nginx.conf.ctmpl:/etc/nginx/conf.d/templates/nginx.conf.ctmpl:ro
+      - ./config/nginx.conf:/etc/nginx/conf.d/nginx.conf:ro
+      - ./config/templates/locations.conf.ctmpl:/etc/nginx/conf.d/templates/locations.conf.ctmpl:ro
+      - ./config/templates/upstreams.conf.ctmpl:/etc/nginx/conf.d/templates/upstreams.conf.ctmpl:ro

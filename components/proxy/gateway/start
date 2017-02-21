@@ -1,11 +1,27 @@
 #!/bin/bash
 set -e
 
+# ==================================================================================================
+# Define the default args
+# ==================================================================================================
 CONSUL_URL=${CONSUL_URL:-example.com:8500}
-CONFIG_SRC=${CONFIG_SRC:-/etc/nginx/conf.d/templates/nginx.conf.ctmpl}
-CONFIG_DST=${CONFIG_DST:-/etc/nginx/conf.d/nginx.conf}
 CONFIG_CMD=${CONFIG_CMD:-service nginx reload}
 
+UPSTREAM_SRC=${CONSUL_SRC:-/etc/nginx/conf.d/templates/upstreams.conf.ctmpl}
+UPSTREAM_DST=${CONSUL_DST:-/etc/nginx/conf.d/upstreams/proxies.conf}
+
+LOCATION_SRC=${CONSUL_SRC:-/etc/nginx/conf.d/templates/locations.conf.ctmpl}
+LOCATION_DST=${CONSUL_DST:-/etc/nginx/conf.d/locations/proxies.conf}
+
+
+# ==================================================================================================
+# Start the nginx server
+# ==================================================================================================
 service nginx start
 
-consul-template -consul-addr=$CONSUL_URL -template="${CONFIG_SRC}:${CONFIG_DST}:${CONFIG_CMD}"
+
+# ==================================================================================================
+# Generate the template(s)
+# ==================================================================================================
+# consul-template -consul-addr=$CONSUL_URL -template="${UPSTREAM_SRC}:${UPSTREAM_DST}:${CONFIG_CMD}"
+# consul-template -consul-addr=$CONSUL_URL -template="${LOCATION_SRC}:${LOCATION_DST}:${CONFIG_CMD}"
