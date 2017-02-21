@@ -39,4 +39,3 @@ services:
       - ./config/templates:/etc/nginx/conf.d/templates:ro
       - ./config/upstreams:/etc/nginx/conf.d/upstreams:rw
       - ./config/locations:/etc/nginx/conf.d/locations:rw
-      #- ./config/nginx.conf:/etc/nginx/conf.d/nginx.conf:ro
