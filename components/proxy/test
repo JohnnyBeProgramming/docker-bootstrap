@@ -1,6 +1,16 @@
 #!/bin/bash
 set -e
 
+# Set defaults
 CONSUL_URL=${CONSUL_URL:-consul:8500}
+CONSUL_SRC=${CONSUL_SRC:-config/templates/nginx.conf.ctmpl}
+CONSUL_DST=${CONSUL_DST:-config/nginx.conf.test}
 
-consul-template -consul=$CONSUL_URL -template="config/nginx.conf.ctmpl:config/nginx.conf.test" -once
+# Generate the template (once off)
+consul-template -consul=$CONSUL_URL -template="${CONSUL_SRC}:${CONSUL_DST}" --once
+
+# Display the proxy config
+cat "${CONSUL_DST}"
+
+# Restart the proxy gateway
+docker kill -s HUP proxy
