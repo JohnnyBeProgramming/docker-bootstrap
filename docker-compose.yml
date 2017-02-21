@@ -18,7 +18,7 @@ services:
       file: ./components/proxy/docker-compose.yml
       service: gateway # Specify `http`, `https` or `gateway`
     depends_on:
-     - consul-host
+     - consul
      - registrator
      - registry
      - portainer
@@ -33,11 +33,11 @@ services:
   # -----------------------------------------------------------------------------------------
   # Devops internals
   # -----------------------------------------------------------------------------------------
-  consul-host:
-    container_name: "consul-host"
+  consul:
+    container_name: "consul"
     extends:
       file: ./components/consul/docker-compose.yml
-      service: consul-host
+      service: consul
     networks:
       - public
 
@@ -45,9 +45,9 @@ services:
     container_name: "registrator"
     hostname: "registrator"
     image: "gliderlabs/registrator:master"
-    command: "-internal consul://consul-host:8500"
+    command: "-internal consul://consul:8500"
     depends_on:
-     - consul-host
+     - consul
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock
     networks:

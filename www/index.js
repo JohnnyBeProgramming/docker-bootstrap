@@ -19,7 +19,7 @@ angular
       accent: 'amber'
     },
     catalog: {
-      url: '/consul-host/v1/catalog/services?stale=&wait=60000ms'
+      url: '/consul/v1/catalog/services?stale=&wait=60000ms'
     },
   })
   .config([

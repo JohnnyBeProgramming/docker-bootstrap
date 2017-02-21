@@ -69,12 +69,13 @@ server {
           {{ if $tag | regexMatch "(app|api)(:.*)?" }}
               {{ $tag_name := $tag | regexReplaceAll "(app|api)(:)(.*)" "$1" }}
               {{ $tag_opts := $tag | regexReplaceAll "(app|api)(:)(.*)" "$3" }}
-              {{ $tag_port := $tag_opts }}
+              {{ $tag_port := $tag_opts | regexReplaceAll "(\\d+)(\\/)(.*)" "$1" }}
+              {{ $tag_path := $tag_opts | regexReplaceAll "(\\d+)(\\/)(.*)" "$3" }}
               {{ $app_port := $service.Name | regexReplaceAll "([\\w|\\-]+)(\\-)(\\d+)" "$3" }}
               {{ $app_name := $service.Name | regexReplaceAll "([\\w|\\-]+)(\\-)(\\d+)" "$1" }}
   # ===========================================================
   # ~~> [!] {{ $service.Name }} {{ $service.Tags }} <~~~~ {{ $tag }}
-  # ~~> [?] {{ $app_name }} [ {{ $app_port }} ] ==? [ {{ $tag_port }} ]
+  # ~~> [?] {{ $app_name }} [ {{ $app_port }} ] ==? [ {{ $tag_port }} ] {{ $tag_path }}
   # ===========================================================
               {{ if or (eq $tag $tag_name) (and (eq $tag_port $app_port) (ne $app_name $service.Name)) }}
                   {{ if eq $tag_name "app" }}

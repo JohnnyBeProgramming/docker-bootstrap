@@ -1,14 +1,14 @@
 version: "2"
 services:
 
-  consul-host:
+  consul:
     image: "progrium/consul:latest"
-    container_name: "consul-host"
-    hostname: "consul-host"
+    container_name: "consul"
+    hostname: "consul"
     command: "-server -bootstrap -ui-dir /ui"
     environment:
-     - SERVICE_NAME=consul-host
-     - SERVICE_TAGS=app:8500
+     - SERVICE_NAME=consul
+     - SERVICE_TAGS=app:8500/consul/ui/
     ports:
       - "8400:8400"
       - "8500:8500"
@@ -24,6 +24,6 @@ services:
       - "8400"
       - "8500"
       - "8600"
-    command: "-server -join consul-host"
+    command: "-server -join consul"
     depends_on:
-      - consul-host
+      - consul

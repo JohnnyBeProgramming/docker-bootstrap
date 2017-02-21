@@ -5,10 +5,10 @@ set -e
 CONSUL_URL=${CONSUL_URL:-consul:8500}
 
 UPSTREAM_SRC=${CONSUL_SRC:-config/templates/upstreams.conf.ctmpl}
-UPSTREAM_DST=${CONSUL_DST:-config/upstreams/proxy.conf}
+UPSTREAM_DST=${CONSUL_DST:-config/upstreams/proxy.conf.tmp}
 
 LOCATION_SRC=${CONSUL_SRC:-config/templates/locations.conf.ctmpl}
-LOCATION_DST=${CONSUL_DST:-config/locations/proxy.conf}
+LOCATION_DST=${CONSUL_DST:-config/locations/proxy.conf.tmp}
 
 # Generate the template(s)
 consul-template -consul=$CONSUL_URL -template="${UPSTREAM_SRC}:${UPSTREAM_DST}" --once

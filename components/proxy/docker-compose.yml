@@ -30,7 +30,7 @@ services:
     image: "example.com:5000/proxy:gateway"
     build: ./gateway
     environment:
-      CONSUL_URL: "consul-host:8500"
+      CONSUL_URL: "consul:8500"
       #CONFIG_SRC: "/etc/nginx/conf.d/nginx.proxies.ctmpl"
       #CONFIG_DST: "/etc/nginx/conf.d/nginx.tmp.conf"
     volumes:
