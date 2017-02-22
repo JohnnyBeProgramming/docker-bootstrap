@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source .env
+
 TARGET_NAME=${1:-proxy}
 
 echo "Starting container: ${TARGET_NAME}..."

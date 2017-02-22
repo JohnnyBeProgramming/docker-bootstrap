@@ -17,6 +17,8 @@ services:
     extends:
       file: ./components/proxy/docker-compose.yml
       service: gateway # Specify `http`, `https` or `gateway`
+    env_file:
+      - ./.env
     depends_on:
      - consul
      - registrator
