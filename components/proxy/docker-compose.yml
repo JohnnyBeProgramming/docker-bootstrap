@@ -10,7 +10,7 @@ services:
       STAGE: local # or "production"
       DOMAINS: "example.com"
     volumes:
-     - ./certs/data:/var/lib/https-portal:rw
+     - ./https/certs:/var/lib/https-portal:rw
 
   gateway:
     image: "example.com:5000/proxy/gateway:latest"

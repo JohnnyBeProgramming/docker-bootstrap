@@ -1,6 +1,17 @@
 version: '2'
 services:
   # -----------------------------------------------------------------------------------------
+  # Portal web application, hosted by the proxy
+  # -----------------------------------------------------------------------------------------
+  portal:
+    container_name: "portal"
+    image: "example.com:5000/portal:latest"
+    volumes:
+     - ./projects/portal/dist:/tmp/www:rw
+     - ./projects/portal/dist:/var/www/vhosts/example.com/:ro
+  # -----------------------------------------------------------------------------------------
+
+  # -----------------------------------------------------------------------------------------
   # Public Proxy
   # -----------------------------------------------------------------------------------------
   # You can specify one of the following proxy types:
@@ -12,44 +23,56 @@ services:
   proxy:
     container_name: "proxy"
     extends:
-      file: ./components/proxy/docker-compose.yml
-      service: gateway # Specify `http`, `https` or `gateway`
-    env_file:
-      - ./.env
-    volumes_from:
-      - www
-    depends_on:
-     - consul
-     - registrator
-     - portainer
-     - registry
-     - test-py
+      service: http # Specify `http`, `https` or `gateway`
     ports:
       - "8080:80"
       - "8443:443"
-
-  www:
-    container_name: "www"
-    image: "example.com:5000/www:latest"
+    env_file:
+      - ./.env
+    volumes_from:
+      - portal
+    depends_on:
+     - consul
+     - registrator
+     #- portainer
+     #- registry
+     #- test-py
+  # -----------------------------------------------------------------------------------------
+  # Proxy type: `http` (insecure)
+  # -----------------------------------------------------------------------------------------
+  http:
+    image: "example.com:5000/proxy/http:latest"
+  # -----------------------------------------------------------------------------------------
+  # Proxy type: `https` (secured with lets-encrypt)
+  # -----------------------------------------------------------------------------------------
+  https:
+    image: "example.com:5000/proxy/https:latest"
+    environment:
+      STAGE: local # or "production"
+      DOMAINS: "example.com"
     volumes:
-     - ./www:/www:rw
-
+     - ./components/proxy/https/certs:/var/lib/https-portal:rw
   # -----------------------------------------------------------------------------------------
-  # Devops internals
+  # Proxy type: `gateway` (auto service discovery with active routing)
   # -----------------------------------------------------------------------------------------
+  gateway:
+    image: "example.com:5000/proxy/gateway:latest"
+    environment:
+      CONSUL_URL: "consul:8500"
+  registrator:
+    container_name: "registrator"
+    image: "example.com:5000/registrator:latest"
+    command: "-internal consul://consul:8500"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock
+    depends_on:
+     - consul
   consul:
     container_name: "consul"
     extends:
       file: ./components/consul/docker-compose.yml
       service: consul
-
-  registrator:
-    container_name: "registrator"
-    extends:
-      file: ./components/registrator/docker-compose.yml
-      service: registrator
-    depends_on:
-     - consul
+  # -----------------------------------------------------------------------------------------
 
   # -----------------------------------------------------------------------------------------
   # Build and promotion pipeline
@@ -59,7 +82,6 @@ services:
     extends:
       file: ./components/registry/docker-compose.yml
       service: registry
-
 
   # -----------------------------------------------------------------------------------------
   # Docker administration
