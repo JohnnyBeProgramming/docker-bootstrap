@@ -23,7 +23,7 @@ services:
   proxy:
     container_name: "proxy"
     extends:
-      service: http # Specify `http`, `https` or `gateway`
+      service: gateway # Specify `http`, `https` or `gateway`
     ports:
       - "8080:80"
       - "8443:443"
@@ -35,8 +35,8 @@ services:
      - consul
      - registrator
      #- portainer
-     #- registry
-     #- test-py
+     - registry
+     - test-py
   # -----------------------------------------------------------------------------------------
   # Proxy type: `http` (insecure)
   # -----------------------------------------------------------------------------------------

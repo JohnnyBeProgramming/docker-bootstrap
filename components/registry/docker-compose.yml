@@ -6,4 +6,6 @@ services:
     environment:
      - SERVICE_NAME=registry
      - SERVICE_TAGS=api
+    ports:
+      - "5000:5000"
 
