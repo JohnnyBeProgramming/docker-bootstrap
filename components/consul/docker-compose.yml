@@ -3,7 +3,6 @@ services:
 
   consul:
     image: "example.com:5000/consul:latest"
-    container_name: "consul"
     hostname: "consul"
     command: "-server -bootstrap -ui-dir /ui"
     environment:
