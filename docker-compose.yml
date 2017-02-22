@@ -34,7 +34,7 @@ services:
     depends_on:
      - consul
      - registrator
-     #- portainer
+     - portainer
      - registry
      - test-py
   # -----------------------------------------------------------------------------------------
@@ -87,6 +87,7 @@ services:
   # Docker administration
   # -----------------------------------------------------------------------------------------
   portainer:
+    container_name: "portainer"
     extends:
       file: ./components/portainer/docker-compose.yml
       service: portainer
@@ -94,6 +95,7 @@ services:
       - portainer-api
 
   portainer-api:
+    container_name: "portainer-api"
     extends:
       file: ./components/portainer/docker-compose.yml
       service: portainer-api
