@@ -3,7 +3,7 @@ services:
 
   portainer:
     container_name: "portainer-app"
-    image: "example.com:5000/portainer/app:latest"
+    image: "example.com:5000/portainer:latest"
     build: .
     command: --templates http://portainer-tpl/app.templates.json -d /data
     environment:

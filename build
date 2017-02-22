@@ -9,19 +9,23 @@ then
     docker build -t "${TARGET_REPO}/${TARGET_NAME}:latest" "${TARGET_NAME}"
     echo "Done."
 else
-    echo "Building all images..."
+    echo "Building component images..."
+    scan_dir="./components/"
+    find "${scan_dir}" -name "Dockerfile" -print0 |
+    while IFS= read -r -d $'\0' tag; do
+        tag=${tag#${scan_dir}/}
+        tag=${tag%/Dockerfile}
+        docker build -t "${TARGET_REPO}/${tag}:latest" "${scan_dir}${tag}"
+    done
 
-    docker build -t "${TARGET_REPO}/proxy/http:latest" "components/proxy/http"
-    docker build -t "${TARGET_REPO}/proxy/https:latest" "components/proxy/https"
-    docker build -t "${TARGET_REPO}/proxy/gateway:latest" "components/proxy/gateway"
-
-    docker build -t "${TARGET_REPO}/registry:latest" "components/registry"
-
-    docker build -t "${TARGET_REPO}/portainer/app:latest" "components/portainer"
-    docker build -t "${TARGET_REPO}/portainer/templates:latest" "components/portainer/templates"
-
-    docker build -t "${TARGET_REPO}/src/tests/python/app:latest" "src/tests/python"
-    docker build -t "${TARGET_REPO}/src/tests/python/redis:latest" "src/tests/python/redis"
+    echo "Building sources..."
+    scan_dir="./src/"
+    find "${scan_dir}" -name "Dockerfile" -print0 |
+    while IFS= read -r -d $'\0' tag; do
+        tag=${tag#${scan_dir}/}
+        tag=${tag%/Dockerfile}
+        docker build -t "${TARGET_REPO}/${tag}:latest" "${scan_dir}${tag}"
+    done
 
     echo "Done."
 fi

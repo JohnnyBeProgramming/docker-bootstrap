@@ -2,7 +2,7 @@ version: "2"
 services:
 
   consul:
-    image: "progrium/consul:latest"
+    image: "example.com:5000/consul:latest"
     container_name: "consul"
     hostname: "consul"
     command: "-server -bootstrap -ui-dir /ui"
@@ -16,7 +16,7 @@ services:
       - "8600:53"
 
   consul-slave:
-    image: "progrium/consul:latest"
+    image: "example.com:5000/consul:latest"
     hostname: "consul-slave"
     environment:
      - SERVICE_NAME=consul-slave
