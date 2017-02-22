@@ -2,8 +2,9 @@ version: '2'
 services:
 
   portainer:
+    container_name: "portainer"
     image: "example.com:5000/portainer:latest"
-    command: --templates http://portainer-tpl/app.templates.json -d /data
+    command: --templates http://portainer-api/app.templates.json -d /data
     environment:
      - SERVICE_NAME=portainer
      - SERVICE_TAGS=app
@@ -12,6 +13,7 @@ services:
       - ./.data:/data
 
   portainer-api:
+    container_name: "portainer-api"
     image: "example.com:5000/portainer/templates:latest"
     environment:
      - SERVICE_NAME=portainer-api

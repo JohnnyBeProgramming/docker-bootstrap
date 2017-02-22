@@ -16,15 +16,23 @@ services:
       service: gateway # Specify `http`, `https` or `gateway`
     env_file:
       - ./.env
+    volumes_from:
+      - www
     depends_on:
      - consul
      - registrator
-     - registry
      - portainer
+     - registry
      - test-py
     ports:
       - "8080:80"
       - "8443:443"
+
+  www:
+    container_name: "www"
+    image: "example.com:5000/www:latest"
+    volumes:
+     - ./www:/www:rw
 
   # -----------------------------------------------------------------------------------------
   # Devops internals
@@ -37,19 +45,17 @@ services:
 
   registrator:
     container_name: "registrator"
-    hostname: "registrator"
-    image: "gliderlabs/registrator:master"
-    command: "-internal consul://consul:8500"
+    extends:
+      file: ./components/registrator/docker-compose.yml
+      service: registrator
     depends_on:
      - consul
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock
-
 
   # -----------------------------------------------------------------------------------------
   # Build and promotion pipeline
   # -----------------------------------------------------------------------------------------
   registry:
+    container_name: "registry"
     extends:
       file: ./components/registry/docker-compose.yml
       service: registry
@@ -76,12 +82,12 @@ services:
   # -----------------------------------------------------------------------------------------
   test-py:
     extends:
-      file: ./src/tests/python/docker-compose.yml
+      file: ./projects/tests-py/docker-compose.yml
       service: tests-python
     depends_on:
      - test-py-redis
 
   test-py-redis:
     extends:
-      file: ./src/tests/python/docker-compose.yml
+      file: ./projects/tests-py/docker-compose.yml
       service: tests-python-redis

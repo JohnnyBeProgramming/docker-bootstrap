@@ -33,7 +33,6 @@ else
     echo "Building images..."
     build_recursive "./components/"
     build_recursive "./projects/"
-    build_image "www" "./www/"
     echo "Done."
 fi
 
