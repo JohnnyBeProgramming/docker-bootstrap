@@ -16,5 +16,5 @@ services:
     image: "example.com:5000/proxy/gateway:latest"
     environment:
       CONSUL_URL: "consul:8500"
-      #CONFIG_SRC: "/etc/nginx/conf.d/nginx.proxies.ctmpl"
-      #CONFIG_DST: "/etc/nginx/conf.d/nginx.tmp.conf"
+      #CONFIG_SRC: "/etc/nginx/conf.d/templates/nginx.proxies.ctmpl"
+      #CONFIG_DST: "/etc/nginx/conf.d/nginx.proxies.conf"
