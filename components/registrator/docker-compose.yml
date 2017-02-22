@@ -1,0 +1,7 @@
+version: '2'
+services:
+  registrator:
+      image: "example.com:5000/registrator:latest"
+      command: "-internal consul://consul:8500"
+      volumes:
+        - /var/run/docker.sock:/tmp/docker.sock
