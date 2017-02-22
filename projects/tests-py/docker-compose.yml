@@ -1,10 +1,9 @@
 version: '2'
 services:
-  tests-python:
-    container_name: "test-py"
+  test-py:
     image: "example.com:5000/tests-py:latest"
     environment:
-     - TEST_STORAGE_REDIS=tests-python-redis
+     - TEST_STORAGE_REDIS=test-py-db
      - SERVICE_NAME=test-py
      - SERVICE_TAGS=app,test
      #- SERVICE_TAGS=app:5000/tests/python,test
@@ -13,10 +12,8 @@ services:
     volumes:
      - ./src:/src
 
-  tests-python-redis:
-    container_name: "test-py-db"
+  test-py-db:
     image: "example.com:5000/redis:latest"
     environment:
-     - SERVICE_NAME=test-redis
-     - SERVICE_TAGS=api,test
-     #- SERVICE_TAGS=api:/tests/python,test
+     - SERVICE_NAME=test-py
+     - SERVICE_TAGS=db,test

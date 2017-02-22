@@ -103,13 +103,15 @@ services:
   # Testing containers
   # -----------------------------------------------------------------------------------------
   test-py:
+    container_name: "test-py"
     extends:
       file: ./projects/tests-py/docker-compose.yml
-      service: tests-python
+      service: test-py
     depends_on:
-     - test-py-redis
+     - test-py-db
 
-  test-py-redis:
+  test-py-db:
+    container_name: "test-py-db"
     extends:
       file: ./projects/tests-py/docker-compose.yml
-      service: tests-python-redis
+      service: test-py-db
