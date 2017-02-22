@@ -1,0 +1,30 @@
+version: "2"
+services:
+
+  gogs:
+    image: "gogs/gogs:latest"
+    environment:
+     - SERVICE_NAME=gogs
+     - SERVICE_TAGS=app:3000
+     #- DB_TYPE=postgres
+     #- HOST=gogs-db
+     #- NAME=gogs
+     #- USER=lala
+     #- PASSWD=lala
+    ports:
+      - "10022:22"
+      - "10080:3000"
+    volumes:
+     - .data/vcs:/data
+
+  gogs-db:
+    container_name: "gogs-db"
+    image: "postgres:latest"
+    environment:
+     - SERVICE_NAME=gogs-db
+     - SERVICE_TAGS=db
+     - POSTGRES_DB=gogs
+     - POSTGRES_USER=lala
+     - POSTGRES_PASSWORD=lala
+    volumes:
+     - .data/db:/data
