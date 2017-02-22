@@ -8,7 +8,8 @@ services:
     command: "-server -bootstrap -ui-dir /ui"
     environment:
      - SERVICE_NAME=consul
-     - SERVICE_TAGS=app:8500/consul/ui/
+     - SERVICE_TAGS=app:8500
+     #- SERVICE_TAGS=app:8500/consul/ui/
     ports:
       - "8400:8400"
       - "8500:8500"
