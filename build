@@ -3,30 +3,37 @@ source .env
 
 TARGET_NAME=${1:-}
 
+function build_image ()
+{
+    tag=${1}
+    src=${2}
+    img="${TARGET_REPO}/${tag}:latest"
+    echo " + ${img}"
+    docker build -t "${img}" "${src}" > /dev/null
+}
+
+function build_recursive ()
+{
+    scan_dir=${1}
+    find "${scan_dir}" -name "Dockerfile" -print0 |
+    while IFS= read -r -d $'\0' src; do
+        tag=${src}
+        tag=${tag#${scan_dir}/}
+        tag=${tag%/Dockerfile}
+        build_image "${tag}" "${scan_dir}/${tag}"
+    done
+}
+
 if [ ! "${TARGET_NAME}" == "" ]
 then
     echo "Building image: ${TARGET_NAME}..."
-    docker build -t "${TARGET_REPO}/${TARGET_NAME}:latest" "${TARGET_NAME}"
+    build_image "${TARGET_NAME}" "${TARGET_NAME}"
     echo "Done."
 else
-    echo "Building component images..."
-    scan_dir="./components/"
-    find "${scan_dir}" -name "Dockerfile" -print0 |
-    while IFS= read -r -d $'\0' tag; do
-        tag=${tag#${scan_dir}/}
-        tag=${tag%/Dockerfile}
-        docker build -t "${TARGET_REPO}/${tag}:latest" "${scan_dir}${tag}"
-    done
-
-    echo "Building sources..."
-    scan_dir="./src/"
-    find "${scan_dir}" -name "Dockerfile" -print0 |
-    while IFS= read -r -d $'\0' tag; do
-        tag=${tag#${scan_dir}/}
-        tag=${tag%/Dockerfile}
-        docker build -t "${TARGET_REPO}/${tag}:latest" "${scan_dir}${tag}"
-    done
-
+    echo "Building images..."
+    build_recursive "./components/"
+    build_recursive "./src/"
+    build_image "www" "./www/"
     echo "Done."
 fi
 
