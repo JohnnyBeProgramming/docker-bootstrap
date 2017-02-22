@@ -3,36 +3,18 @@ services:
 
   http:
     image: "example.com:5000/proxy/http:latest"
-    build: ./http
-    volumes:
-     - ../../www:/usr/share/nginx/html:ro
-     - ./config:/etc/nginx/conf.d/:ro
-     - ./certs:/etc/nginx/certs/:ro
 
   https:
     image: "example.com:5000/proxy/https:latest"
-    build: ./https
     environment:
       STAGE: local # or "production"
       DOMAINS: "example.com"
     volumes:
-     - ../../www:/var/www/vhosts/example.com/:ro
      - ./certs/data:/var/lib/https-portal:rw
-     - ./config/upstreams:/etc/nginx/conf.d/upstreams:ro
-     - ./config/locations:/etc/nginx/conf.d/locations:ro
-     - ./config/templates/routes.conf.erb:/var/lib/nginx-conf/my.example.com.conf.erb:ro
-     - ./config/templates/routes.ssl.conf.erb:/var/lib/nginx-conf/my.example.com.ssl.conf.erb:ro
 
   gateway:
     image: "example.com:5000/proxy/gateway:latest"
-    build: ./gateway
     environment:
       CONSUL_URL: "consul:8500"
       #CONFIG_SRC: "/etc/nginx/conf.d/nginx.proxies.ctmpl"
       #CONFIG_DST: "/etc/nginx/conf.d/nginx.tmp.conf"
-    volumes:
-      - ../../www:/usr/share/nginx/html:ro
-      - ./certs:/etc/nginx/certs/:ro
-      - ./config/templates:/etc/nginx/conf.d/templates:ro
-      - ./config/upstreams:/etc/nginx/conf.d/upstreams:rw
-      - ./config/locations:/etc/nginx/conf.d/locations:rw
