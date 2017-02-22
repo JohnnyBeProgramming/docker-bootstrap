@@ -1,26 +1,32 @@
 #!/bin/bash
+source .env
 
 TARGET_NAME=${1:-}
 
 if [ ! "${TARGET_NAME}" == "" ]
 then
     echo "Building image: ${TARGET_NAME}..."
-    docker build -t "example.com:5000/${TARGET_NAME}:latest" "${TARGET_NAME}"
+    docker build -t "${TARGET_REPO}/${TARGET_NAME}:latest" "${TARGET_NAME}"
     echo "Done."
 else
     echo "Building all images..."
 
-    docker build -t "example.com:5000/proxy:http" "components/proxy/http"
-    docker build -t "example.com:5000/proxy:https" "components/proxy/https"
+    docker build -t "${TARGET_REPO}/proxy/http:latest" "components/proxy/http"
+    docker build -t "${TARGET_REPO}/proxy/https:latest" "components/proxy/https"
+    docker build -t "${TARGET_REPO}/proxy/gateway:latest" "components/proxy/gateway"
 
-    docker build -t "example.com:5000/src/tests/python/app:latest" "src/tests/python"
-    docker build -t "example.com:5000/src/tests/python/redis:latest" "src/tests/python/redis"
+    docker build -t "${TARGET_REPO}/registry:latest" "components/registry"
 
-    docker build -t "example.com:5000/portainer/app:latest" "components/portainer"
-    docker build -t "example.com:5000/portainer/templates:latest" "components/portainer/templates"
+    docker build -t "${TARGET_REPO}/portainer/app:latest" "components/portainer"
+    docker build -t "${TARGET_REPO}/portainer/templates:latest" "components/portainer/templates"
+
+    docker build -t "${TARGET_REPO}/src/tests/python/app:latest" "src/tests/python"
+    docker build -t "${TARGET_REPO}/src/tests/python/redis:latest" "src/tests/python/redis"
 
     echo "Done."
 fi
 
 echo "Listing domain-specific images..."
-docker images | sort | grep example.com:5000
+echo ----------------------------------------------------------------------------------------------
+docker images | sort | grep "${TARGET_REPO}"
+echo ----------------------------------------------------------------------------------------------

@@ -2,8 +2,7 @@ version: '2'
 services:
 
   http:
-    container_name: "http"
-    image: "example.com:5000/proxy:http"
+    image: "example.com:5000/proxy/http:latest"
     build: ./http
     volumes:
      - ../../www:/usr/share/nginx/html:ro
@@ -11,8 +10,7 @@ services:
      - ./certs:/etc/nginx/certs/:ro
 
   https:
-    container_name: "https"
-    image: "example.com:5000/proxy:https"
+    image: "example.com:5000/proxy/https:latest"
     build: ./https
     environment:
       STAGE: local # or "production"
@@ -26,8 +24,7 @@ services:
      - ./config/templates/routes.ssl.conf.erb:/var/lib/nginx-conf/my.example.com.ssl.conf.erb:ro
 
   gateway:
-    container_name: "gateway"
-    image: "example.com:5000/proxy:gateway"
+    image: "example.com:5000/proxy/gateway:latest"
     build: ./gateway
     environment:
       CONSUL_URL: "consul:8500"

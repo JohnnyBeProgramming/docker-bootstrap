@@ -1,23 +1,27 @@
 #!/bin/bash
+source .env
 
 TARGET_NAME=${1:-}
 
 if [ ! "${TARGET_NAME}" == "" ]
 then
     echo "Building image: ${TARGET_NAME}..."
-    docker push "example.com:5000/${TARGET_NAME}"
+    docker push "${TARGET_REPO}/${TARGET_NAME}"
     echo "Done."
 else
-    echo "Building all images..."
+    echo "Publishing all images..."
 
-    docker push "example.com:5000/proxy/http:latest"
-    docker push "example.com:5000/proxy/https:latest"
+    # ToDo: Automate publishing...
+    # docker images | grep example.com | cut -d ' ' -f 1
 
-    docker push "example.com:5000/src/tests/python/app:latest"
-    docker push "example.com:5000/src/tests/python/redis:latest"
+    docker push "${TARGET_REPO}/proxy/http:latest"
+    docker push "${TARGET_REPO}/proxy/https:latest"
 
-    docker push "example.com:5000/devops/portainer/app:latest"
-    docker push "example.com:5000/devops/portainer/templates:latest"
+    docker push "${TARGET_REPO}/src/tests/python/app:latest"
+    docker push "${TARGET_REPO}/src/tests/python/redis:latest"
+
+    docker push "${TARGET_REPO}/portainer/app:latest"
+    docker push "${TARGET_REPO}/portainer/templates:latest"
 
     echo "Done."
 fi

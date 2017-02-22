@@ -1,7 +1,4 @@
 version: '2'
-networks:
-  public:
-    driver: bridge
 services:
   # -----------------------------------------------------------------------------------------
   # Public Proxy
@@ -28,8 +25,6 @@ services:
     ports:
       - "8080:80"
       - "8443:443"
-    networks:
-      - public
 
   # -----------------------------------------------------------------------------------------
   # Devops internals
@@ -39,8 +34,6 @@ services:
     extends:
       file: ./components/consul/docker-compose.yml
       service: consul
-    networks:
-      - public
 
   registrator:
     container_name: "registrator"
@@ -51,8 +44,6 @@ services:
      - consul
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock
-    networks:
-      - public
 
 
   # -----------------------------------------------------------------------------------------
@@ -62,8 +53,6 @@ services:
     extends:
       file: ./components/registry/docker-compose.yml
       service: registry
-    networks:
-      - public
 
 
   # -----------------------------------------------------------------------------------------
@@ -75,15 +64,11 @@ services:
       service: portainer
     depends_on:
       - portainer-api
-    networks:
-      - public
 
   portainer-api:
     extends:
       file: ./components/portainer/docker-compose.yml
       service: portainer-api
-    networks:
-      - public
 
 
   # -----------------------------------------------------------------------------------------
@@ -95,12 +80,8 @@ services:
       service: tests-python
     depends_on:
      - test-py-redis
-    networks:
-      - public
 
   test-py-redis:
     extends:
       file: ./src/tests/python/docker-compose.yml
       service: tests-python-redis
-    networks:
-      - public
