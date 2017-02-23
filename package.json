@@ -10,8 +10,7 @@
   "scripts": {
     "start": "docker-compose up --build",
     "stop": "docker-compose stop && docker-compose down --volumes",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "manage": "cd devops/portainer && docker-compose up -d && open http://127.0.0.1:9999/"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "docker",
