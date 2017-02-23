@@ -15,5 +15,5 @@ services:
   test-py-db:
     image: "example.com:5000/redis:latest"
     environment:
-     - SERVICE_NAME=test-py
+     - SERVICE_NAME=test-py-db
      - SERVICE_TAGS=db,test

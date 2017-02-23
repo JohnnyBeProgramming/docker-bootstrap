@@ -14,12 +14,12 @@ angular
     'ngMaterial',
   ])
   .constant('app.config', {
+    catalog: {
+      url: '/api/consul/v1/catalog/services?stale=&wait=60000ms'
+    },
     theme: {
       primary: 'teal',
       accent: 'amber'
-    },
-    catalog: {
-      url: '/consul/v1/catalog/services?stale=&wait=60000ms'
     },
   })
   .config([

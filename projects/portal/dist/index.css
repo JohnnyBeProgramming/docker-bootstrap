@@ -1,0 +1,9 @@
+.status-online .material-icons {
+    color: #00d900;
+}
+.status-busy .material-icons {
+    color: #65a4ff;
+}
+.status-error .material-icons {
+    color: red;
+}

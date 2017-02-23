@@ -17,8 +17,11 @@
             flex="none">
 
     <div class="md-toolbar-tools" ng-cloak>
-        <md-button class="md-icon-button" aria-label="Settings" ng-disabled="true">
-            <a href="/" class="material-icons">home</a>
+        <md-button class="md-icon-button"
+                   ng-class="{ 'status-online': apps.length }"
+                   ng-href="/"
+                   aria-label="Home">
+            <i class="material-icons">cloud</i>
         </md-button>
 
         <h2 class="md-title"
@@ -44,14 +47,14 @@
 
         <md-button class="md-icon-button"
                    aria-label="Catalogs"
-                   ng-href="consul/v1/catalog/services?stale=&wait=60000ms"
+                   ng-href="api/consul/v1/catalog/services?stale=&wait=60000ms"
                    target="child-frame">
             <i class="material-icons">collections_bookmark</i>
         </md-button>
 
         <md-button class="md-icon-button"
                    aria-label="Config"
-                   ng-href="consul/ui/"
+                   ng-href="api/consul/ui/"
                    target="child-frame">
             <i class="material-icons">settings</i>
         </md-button>
