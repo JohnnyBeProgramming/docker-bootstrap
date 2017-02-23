@@ -17,11 +17,15 @@
             flex="none">
 
     <div class="md-toolbar-tools" ng-cloak>
-        <md-button class="md-icon-button"
-                   ng-class="{ 'status-online': apps.length }"
+        <md-button aria-label="Home"
+                   class="md-icon-button"
                    ng-href="/"
-                   aria-label="Home">
-            <i class="material-icons">settings_system_daydream</i>
+                   ng-switch="status">
+            <i ng-switch-default class="material-icons status-offline">cloud_off</i>
+            <i ng-switch-when="loading" class="material-icons status-busy">cloud_queue</i>
+            <i ng-switch-when="done" class="material-icons status-online">cloud_done</i>
+            <i ng-switch-when="downloading" class="material-icons status-busy">cloud_download</i>
+            <i ng-switch-when="uploading" class="material-icons status-busy">cloud_upload</i>
         </md-button>
 
         <h2 class="md-title"
@@ -43,7 +47,8 @@
                 <md-button class="md-icon-button"
                            aria-label="Open Menu"
                            ng-click="$mdMenu.open($event)">
-                    <i class="material-icons">menu</i>
+                    <i class="material-icons"
+                       ng-class="{ 'status-offline': !(catalog && catalog.length) }">menu</i>
                 </md-button>
                 <md-menu-content width="4">
 
@@ -120,6 +125,7 @@
 
 <iframe name="child-frame"
         style="border: none;"
+        ng-if="apps.length"
         ng-src="{{ apps.length > 0 ? apps[0].name + '/' : '' }}"
         ng-cloak
         flex>
