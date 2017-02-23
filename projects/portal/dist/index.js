@@ -18,7 +18,7 @@ angular
       url: '/api/consul/v1/catalog/services?stale=&wait=60000ms'
     },
     theme: {
-      primary: 'teal',
+      primary: 'blue-grey',
       accent: 'amber'
     },
   })

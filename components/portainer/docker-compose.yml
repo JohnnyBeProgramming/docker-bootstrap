@@ -3,7 +3,7 @@ services:
 
   portainer:
     image: "example.com:5000/portainer:latest"
-    command: "--templates http://portainer-api/templates -d /data"
+    command: "--templates http://portainer-api:8100/ -d /data"
     environment:
      - SERVICE_NAME=portainer
      - SERVICE_TAGS=app
@@ -12,11 +12,11 @@ services:
       - ./.data:/data
 
   portainer-api:
-    image: "example.com:5000/portainer/templates:latest"
+    image: "example.com:5000/portainer/api:latest"
     environment:
      - SERVICE_NAME=portainer-api
-     - SERVICE_TAGS=app:8100
+     - SERVICE_TAGS=api
     ports:
       - "8100"
     volumes:
-     - ./templates:/usr/src/app/
+     - ./api/service:/usr/src/app/service/

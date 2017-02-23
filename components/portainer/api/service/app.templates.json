@@ -11,7 +11,7 @@
     "title": "Nginx Server",
     "description": "High performance web server",
     "logo": "https://www.phusionpassenger.com/library/images/nginx-37d95ef9.png",
-    "image": "nginx:latest",
+    "image": "nginx:alpine",
     "ports": [
       "80/tcp",
       "443/tcp"

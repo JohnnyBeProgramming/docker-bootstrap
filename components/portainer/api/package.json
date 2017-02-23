@@ -4,7 +4,7 @@
   "description": "Node API extension for portainer.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node service/server.js"
   },
   "dependencies": {
     "express": "^4.13.3"

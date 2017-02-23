@@ -21,7 +21,7 @@
                    ng-class="{ 'status-online': apps.length }"
                    ng-href="/"
                    aria-label="Home">
-            <i class="material-icons">cloud</i>
+            <i class="material-icons">settings_system_daydream</i>
         </md-button>
 
         <h2 class="md-title"
@@ -38,30 +38,83 @@
             </span>
         </div>
 
-        <md-button class="md-icon-button"
-                   aria-label="Registry"
-                   ng-href="api/registry/v2/_catalog?&jsonace=379"
-                   target="child-frame">
-            <i class="material-icons">layers</i>
-        </md-button>
+        <div layout="column" layout-align="center center">
+            <md-menu md-position-mode="target-right target">
+                <md-button class="md-icon-button"
+                           aria-label="Open Menu"
+                           ng-click="$mdMenu.open($event)">
+                    <i class="material-icons">menu</i>
+                </md-button>
+                <md-menu-content width="4">
 
-        <md-button class="md-icon-button"
-                   aria-label="Catalogs"
-                   ng-href="api/consul/v1/catalog/services?stale=&wait=60000ms"
-                   target="child-frame">
-            <i class="material-icons">collections_bookmark</i>
-        </md-button>
+                    <md-menu-item>
+                        <md-button aria-label="Add Resource"
+                                   ng-href="/portainer/#/templates/"
+                                   target="child-frame"
+                                   ng-disabled="!catalog.portainer"
+                                   flex>
+                            <div layout="row" layout-align="start center">
+                                <i class="material-icons">add_box</i>
+                                <p style="padding-left: 8px" flex>
+                                    Add a new resource
+                                </p>
+                            </div>
+                        </md-button>
+                    </md-menu-item>
 
-        <md-button class="md-icon-button"
-                   aria-label="Config"
-                   ng-href="api/consul/ui/"
-                   target="child-frame">
-            <i class="material-icons">settings</i>
-        </md-button>
+                    <md-divider></md-divider>
 
-        <md-button class="md-icon-button" aria-label="More">
-            <i class="material-icons">menu</i>
-        </md-button>
+                    <md-menu-item>
+                        <md-button aria-label="Registry"
+                                   ng-href="api/registry/v2/_catalog?&jsonace=379"
+                                   target="child-frame"
+                                   ng-disabled="!catalog.registry"
+                                   flex>
+                            <div layout="row" layout-align="start center">
+                                <i class="material-icons">collections_bookmark</i>
+                                <p style="padding-left: 8px" flex>
+                                    Browse internal registry
+                                </p>
+                            </div>
+                        </md-button>
+                    </md-menu-item>
+
+                    <md-menu-item>
+                        <md-button aria-label="Catalogs"
+                                   ng-href="api/consul/v1/catalog/services?stale=&wait=60000ms"
+                                   target="child-frame"
+                                   ng-disabled="!catalog.consul"
+                                   flex>
+                            <div layout="row" layout-align="start center">
+                                <i class="material-icons">layers</i>
+                                <p style="padding-left: 8px" flex>
+                                    Micro-services catalog
+                                </p>
+                            </div>
+                        </md-button>
+                    </md-menu-item>
+
+                    <md-divider></md-divider>
+
+                    <md-menu-item>
+                        <md-button aria-label="Config"
+                                   ng-href="api/consul/ui/"
+                                   target="child-frame"
+                                   ng-disabled="!catalog.consul"
+                                   flex>
+                            <div layout="row" layout-align="start center">
+                                <i class="material-icons">settings</i>
+                                <p style="padding-left: 8px" flex>
+                                    Consul Configuration
+                                </p>
+                            </div>
+                        </md-button>
+                    </md-menu-item>
+
+                </md-menu-content>
+            </md-menu>
+        </div>
+
     </div>
 </md-toolbar>
 
