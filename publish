@@ -2,26 +2,22 @@
 source .env
 
 TARGET_NAME=${1:-}
+TARGET_TAGS=${2:-latest}
 
-if [ ! "${TARGET_NAME}" == "" ]
+if [ ! "${TARGET_NAME}" == "" ] && [ ! "${TARGET_NAME}" == "." ]
 then
     echo "Building image: ${TARGET_NAME}..."
-    docker push "${TARGET_REPO}/${TARGET_NAME}"
+    docker push "${TARGET_REPO}/${TARGET_NAME}:${TARGET_TAGS}"
     echo "Done."
 else
     echo "Publishing all images..."
-
-    # ToDo: Automate publishing...
-    # docker images | grep example.com | cut -d ' ' -f 1
-
-    docker push "${TARGET_REPO}/proxy/http:latest"
-    docker push "${TARGET_REPO}/proxy/https:latest"
-
-    docker push "${TARGET_REPO}/src/tests/python/app:latest"
-    docker push "${TARGET_REPO}/src/tests/python/redis:latest"
-
-    docker push "${TARGET_REPO}/portainer/app:latest"
-    docker push "${TARGET_REPO}/portainer/templates:latest"
+    docker images | grep example.com | cut -d " " -f 1 |\
+    while IFS= read -r src; do
+        tag=${src}
+        tag=${tag#${TARGET_REPO}/}
+        echo + ${TARGET_REPO}/${tag}:latest
+        docker push "${TARGET_REPO}/${tag}:${TARGET_TAGS}" #> /dev/null
+    done
 
     echo "Done."
 fi
