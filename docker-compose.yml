@@ -31,12 +31,12 @@ services:
       - ./.env
     volumes_from:
       - portal
-    #depends_on:
-    # - consul
-     #- registrator
-     #- portainer
-     #- registry
-     #- test-py
+    depends_on:
+     - consul
+     - registrator
+     - portainer
+     - registry
+     - test-py
   # -----------------------------------------------------------------------------------------
   # Proxy type: `http` (insecure)
   # -----------------------------------------------------------------------------------------

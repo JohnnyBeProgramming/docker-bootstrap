@@ -12,6 +12,7 @@ angular
   .module('app', [
     'ngAnimate',
     'ngMaterial',
+    'ui.router'
   ])
   .constant('app.config', {
     catalog: {
@@ -31,6 +32,60 @@ angular
         .accentPalette(config.theme.accent || 'amber');
     }
   ])
+  .config([
+    '$locationProvider',
+    '$stateProvider',
+    '$urlRouterProvider',
+    function ($locationProvider, $stateProvider, $urlRouterProvider) {
+
+      $locationProvider
+        .html5Mode(false);
+
+      $urlRouterProvider
+        .otherwise('');
+
+      $stateProvider
+        .state('app', {
+          url: '',
+          views: {
+            '': {
+              templateUrl: 'app/index.html',
+            },
+          },
+        })
+        .state('app.external', {
+          url: '/app/:id',
+          params: {
+            id: ''
+          },
+          views: {
+            main: {
+              templateUrl: 'external/index.html',
+              controller: function ($scope, $stateParams) {
+                var id = $stateParams.id;
+                console.log('~~>', id);
+                $scope.appUrl = '/' + id + '/';
+              }
+            },
+          },
+        })
+        .state('app.catalog', {
+          url: '/catalog',
+          views: {
+            main: {
+              templateUrl: 'catalog/index.html'
+            }
+          },
+        })
+        .state('app.registry', {
+          url: '/registry',
+          views: {
+            main: {
+              templateUrl: 'registry/index.html'
+            }
+          },
+        });
+    }])
   .run([
     'app.config',
     '$rootScope',
@@ -38,7 +93,8 @@ angular
     function (config, $rootScope, $http) {
       // Define the scope variables
       $rootScope.status = 'loading';
-      $rootScope.catalog = [];
+      $rootScope.config = config;
+      $rootScope.catalog = {};
       $rootScope.apps = [];
       $rootScope.apis = [];
 
@@ -103,7 +159,7 @@ angular
             $rootScope.catalog = data;
             $rootScope.apps = apps;
             $rootScope.apis = apis;
-            $rootScope.status = 'ready';
+            $rootScope.status = 'done';
           }
         })
         .catch(function () {
