@@ -12,7 +12,6 @@ angular
   .module('app', [
     'ngAnimate',
     'ngMaterial',
-    'ui.router'
   ])
   .constant('app.config', {
     catalog: {
@@ -32,60 +31,6 @@ angular
         .accentPalette(config.theme.accent || 'amber');
     }
   ])
-  .config([
-    '$locationProvider',
-    '$stateProvider',
-    '$urlRouterProvider',
-    function ($locationProvider, $stateProvider, $urlRouterProvider) {
-
-      $locationProvider
-        .html5Mode(false);
-
-      $urlRouterProvider
-        .otherwise('');
-
-      $stateProvider
-        .state('app', {
-          url: '',
-          views: {
-            '': {
-              templateUrl: 'app/index.html',
-            },
-          },
-        })
-        .state('app.external', {
-          url: '/app/:id',
-          params: {
-            id: ''
-          },
-          views: {
-            main: {
-              templateUrl: 'external/index.html',
-              controller: function ($scope, $stateParams) {
-                var id = $stateParams.id;
-                console.log('~~>', id);
-                $scope.appUrl = '/' + id + '/';
-              }
-            },
-          },
-        })
-        .state('app.catalog', {
-          url: '/catalog',
-          views: {
-            main: {
-              templateUrl: 'catalog/index.html'
-            }
-          },
-        })
-        .state('app.registry', {
-          url: '/registry',
-          views: {
-            main: {
-              templateUrl: 'registry/index.html'
-            }
-          },
-        });
-    }])
   .run([
     'app.config',
     '$rootScope',
