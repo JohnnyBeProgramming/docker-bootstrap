@@ -10,13 +10,3 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./.data:/data
-
-  portainer-api:
-    image: "example.com:5000/portainer/api:latest"
-    environment:
-     - SERVICE_NAME=portainer-api
-     - SERVICE_TAGS=api
-    ports:
-      - "8100"
-    volumes:
-     - ./api/service:/usr/src/app/service/

@@ -96,10 +96,14 @@ services:
 
   portainer-api:
     container_name: "portainer-api"
-    extends:
-      file: ./components/portainer/docker-compose.yml
-      service: portainer-api
-
+    image: "example.com:5000/portainer-api:latest"
+    environment:
+     - SERVICE_NAME=portainer-api
+     - SERVICE_TAGS=api
+    ports:
+      - "8100"
+    volumes:
+     - ./projects/portainer-api/service:/usr/src/app/service/
 
   # -----------------------------------------------------------------------------------------
   # Testing containers
