@@ -183,30 +183,6 @@
     ]
   },
   {
-    "title": "Redis",
-    "description": "Open-source in-memory data structure store",
-    "logo": "https://cloudinovasi.id/assets/img/logos/redis.png",
-    "image": "redis:alpine",
-    "env": [
-      {
-        "name": "SERVICE_NAME",
-        "label": "Service group name",
-        "value": "redis"
-      },
-      {
-        "name": "SERVICE_TAGS",
-        "label": "Specify interactions via tags",
-        "value": "api"
-      }
-    ],
-    "ports": [
-      "6379/tcp"
-    ],
-    "volumes": [
-      "/data"
-    ]
-  },
-  {
     "title": "Grafana",
     "description": "Open-source graphing and dashboard tool",
     "logo": "http://cyphree.architektur-bau.hs-augsburg.de/grafana/public/img/grafana_icon.svg",
