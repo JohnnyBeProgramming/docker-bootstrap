@@ -1,0 +1,14 @@
+version: '2'
+services:
+
+  minio:
+    image: "example.com:5000/minio:latest"
+    environment:
+     - SERVICE_NAME=minio
+     - SERVICE_TAGS=app
+     - MINIO_ACCESS_KEY=my_key
+     - MINIO_SECRET_KEY=my_password
+    ports:
+      - "9000"
+    volumes:
+      - ./.data:/data

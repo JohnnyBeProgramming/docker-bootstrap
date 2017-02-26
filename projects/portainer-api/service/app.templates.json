@@ -8,6 +8,40 @@
     ]
   },
   {
+    "title": "Online storage",
+    "description": "Minio is an object storage server released under Apache License v2.0.",
+    "logo": "https://minio.io/img/logo.svg",
+    "image": "example.com:5000/minio:latest",
+    "env": [
+      {
+        "name": "SERVICE_NAME",
+        "label": "Service group name",
+        "value": "storage"
+      },
+      {
+        "name": "SERVICE_TAGS",
+        "label": "Specify interactions via tags",
+        "value": "app"
+      },
+      {
+        "name": "MINIO_ACCESS_KEY",
+        "label": "Minio Access Key",
+        "value": "my_key"
+      },
+      {
+        "name": "MINIO_SECRET_KEY",
+        "label": "Minio Secret Key",
+        "value": "my_password"
+      }
+    ],
+    "ports": [
+      "9000/tcp"
+    ],
+    "volumes": [
+      "/data"
+    ]
+  },
+  {
     "title": "Nginx Server",
     "description": "High performance web server",
     "logo": "https://www.phusionpassenger.com/library/images/nginx-37d95ef9.png",
